@@ -1,0 +1,178 @@
+{
+  "origin": "https://yorck-consulting.com",
+  "siteName": "yorck. consulting",
+  "locale": "de_DE",
+  "pages": [
+    {
+      "file": "index.html",
+      "path": "/",
+      "type": "website",
+      "category": "Startseite",
+      "accent": "#0cc0df",
+      "image": "startseite.png",
+      "imageAlt": "Vorschau der Startseite von yorck. consulting"
+    },
+    {
+      "file": "cases/index.html",
+      "path": "/cases/",
+      "type": "website",
+      "category": "Cases",
+      "accent": "#ff66c4",
+      "image": "cases.png",
+      "imageAlt": "Vorschau der Projektbeispiele von yorck. consulting"
+    },
+    {
+      "file": "cases/kita.html",
+      "path": "/cases/kita.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#ff66c4",
+      "image": "case-kita.png",
+      "imageAlt": "Vorschau des Cases Eine Kita neu aufstellen"
+    },
+    {
+      "file": "cases/entscheidungswege.html",
+      "path": "/cases/entscheidungswege.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#ff66c4",
+      "image": "case-entscheidungswege.png",
+      "imageAlt": "Vorschau des Cases Organisation, die wieder entscheidet"
+    },
+    {
+      "file": "cases/ki-arbeitsalltag.html",
+      "path": "/cases/ki-arbeitsalltag.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#ffde59",
+      "image": "case-ki-arbeitsalltag.png",
+      "imageAlt": "Vorschau des Cases KI im Arbeitsalltag verankern"
+    },
+    {
+      "file": "cases/fuehrung-umbruch.html",
+      "path": "/cases/fuehrung-umbruch.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#00bf63",
+      "image": "case-fuehrung-umbruch.png",
+      "imageAlt": "Vorschau des Cases Führung begleiten, wo es einsam wird"
+    },
+    {
+      "file": "cases/wissen-das-auffindbar-wird.html",
+      "path": "/cases/wissen-das-auffindbar-wird.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#ff66c4",
+      "image": "case-wissen.png",
+      "imageAlt": "Vorschau des Cases Wissen, das auffindbar wird"
+    },
+    {
+      "file": "cases/personalstrategie.html",
+      "path": "/cases/personalstrategie.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#00bf63",
+      "image": "case-personalstrategie.png",
+      "imageAlt": "Vorschau des Cases Eine Personalstrategie mit langem Atem"
+    },
+    {
+      "file": "cases/projektkompetenz.html",
+      "path": "/cases/projektkompetenz.html",
+      "type": "article",
+      "category": "Case",
+      "accent": "#8c52ff",
+      "image": "case-projektkompetenz.png",
+      "imageAlt": "Vorschau des Cases Projektkompetenz für die ganze Organisation bleibt"
+    },
+    {
+      "file": "insights/index.html",
+      "path": "/insights/",
+      "type": "website",
+      "category": "Insights",
+      "accent": "#8c52ff",
+      "image": "insights.png",
+      "imageAlt": "Vorschau der Insights von yorck. consulting"
+    },
+    {
+      "file": "insights/kein-angebotsproblem-public-sector.html",
+      "path": "/insights/kein-angebotsproblem-public-sector.html",
+      "type": "article",
+      "category": "Public Sector",
+      "accent": "#0cc0df",
+      "image": "insight-public-sector.png",
+      "imageAlt": "Vorschau des Insights Kein Angebotsproblem. Ein Zugangsproblem."
+    },
+    {
+      "file": "insights/angstfreie-organisationen.html",
+      "path": "/insights/angstfreie-organisationen.html",
+      "type": "article",
+      "category": "Kultur & Innovation",
+      "accent": "#00bf63",
+      "image": "insight-angstfreie-organisationen.png",
+      "imageAlt": "Vorschau des Insights Warum angstfreie Organisationen der wahre Innovationsmotor sind"
+    },
+    {
+      "file": "insights/integration-koenigsdisziplin.html",
+      "path": "/insights/integration-koenigsdisziplin.html",
+      "type": "article",
+      "category": "Strategie & M&A",
+      "accent": "#8c52ff",
+      "image": "insight-integration.png",
+      "imageAlt": "Vorschau des Insights Wenn Übernahme nur der Start ist"
+    },
+    {
+      "file": "insights/private-hochschulen-unter-druck.html",
+      "path": "/insights/private-hochschulen-unter-druck.html",
+      "type": "article",
+      "category": "Strategie & Bildung",
+      "accent": "#ff66c4",
+      "image": "insight-private-hochschulen.png",
+      "imageAlt": "Vorschau des Insights Private Hochschulen unter Druck"
+    },
+    {
+      "file": "insights/kitas-im-wandel.html",
+      "path": "/insights/kitas-im-wandel.html",
+      "type": "article",
+      "category": "Positionierung",
+      "accent": "#ffde59",
+      "image": "insight-kitas.png",
+      "imageAlt": "Vorschau des Insights Kitas im Wandel"
+    },
+    {
+      "file": "insights/empowered-by-strengths.html",
+      "path": "/insights/empowered-by-strengths.html",
+      "type": "article",
+      "category": "Kultur & Diversity",
+      "accent": "#ff66c4",
+      "image": "insight-empowered.png",
+      "imageAlt": "Vorschau des Insights Empowered by Strengths"
+    },
+    {
+      "file": "insights/happy-birthday-to-us.html",
+      "path": "/insights/happy-birthday-to-us.html",
+      "type": "article",
+      "category": "Team & Kultur",
+      "accent": "#ffde59",
+      "image": "insight-happy-birthday.png",
+      "imageAlt": "Vorschau des Insights Happy Birthday to us"
+    },
+    {
+      "file": "insights/machen-was-man-wirklich-kann.html",
+      "path": "/insights/machen-was-man-wirklich-kann.html",
+      "type": "article",
+      "category": "Stärken & Team",
+      "accent": "#8c52ff",
+      "image": "insight-staerken.png",
+      "imageAlt": "Vorschau des Insights Machen, was man wirklich kann"
+    },
+    {
+      "file": "insights/vision-statt-verwaltung.html",
+      "path": "/insights/vision-statt-verwaltung.html",
+      "type": "article",
+      "category": "Politik & Gesellschaft",
+      "accent": "#0cc0df",
+      "image": "insight-vision.png",
+      "imageAlt": "Vorschau des Insights Vision statt Verwaltung"
+    }
+  ]
+}

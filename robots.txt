@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /impressum.html
+Disallow: /datenschutz.html
+
+Sitemap: https://yorck-consulting.com/sitemap.xml

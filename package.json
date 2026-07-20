@@ -1,0 +1,30 @@
+{
+  "name": "yorck-consulting-relaunch",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "prepare:pages": "node scripts/prepare-pages.cjs",
+    "serve": "python3 serve.py 8765 .",
+    "social:sync": "node scripts/social-metadata.cjs",
+    "social:check": "node scripts/social-metadata.cjs --check",
+    "setup:test-browsers": "playwright install chromium firefox webkit",
+    "test:unit": "npm run prepare:pages --silent && node --test tests/site-integrity.test.mjs",
+    "test:browser": "node tests/mobile-accessibility.cjs",
+    "test:compat": "node tests/browser-compatibility.cjs",
+    "test:csp": "node tests/csp-runtime.cjs",
+    "test:pages": "node tests/pages-smoke.mjs",
+    "test:performance": "node tests/performance-budget.cjs",
+    "test:cwv": "node tests/core-web-vitals-lab.cjs",
+    "test": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
+    "playwright": "1.61.1",
+    "sharp": "0.34.5",
+    "wrangler": "4.110.0"
+  }
+}
