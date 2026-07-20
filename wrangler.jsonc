@@ -2,5 +2,5 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "yorck-relaunch260720",
   "compatibility_date": "2026-07-15",
-  "pages_build_output_dir": ".pages-dist"
+  "assets": { "directory": ".pages-dist" }
 }
