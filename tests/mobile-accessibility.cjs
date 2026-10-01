@@ -135,6 +135,21 @@ async function metrics(page) {
     }
 
     {
+      // Menü nach dem Scrollen: backdrop-filter an der Kopfzeile ließ das fixierte Menü auf Kopfzeilenhöhe schrumpfen
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+      const page = await context.newPage();
+      await page.goto(base + "/", { waitUntil: "networkidle" });
+      await page.evaluate(() => { document.documentElement.style.scrollBehavior = "auto"; scrollTo(0, 900); });
+      await page.waitForTimeout(300);
+      await page.locator("#navToggle").click();
+      await page.waitForTimeout(300);
+      const open = await page.evaluate(() => ({ height: document.querySelector("#nav").getBoundingClientRect().height, viewport: innerHeight, last: document.querySelector(".nav-links li:last-child a").getBoundingClientRect().bottom }));
+      assert.ok(open.height >= open.viewport - 1, `open menu must fill the screen after scrolling (${open.height} of ${open.viewport})`);
+      assert.ok(open.last < open.viewport, "all menu entries must be visible after scrolling");
+      await context.close();
+    }
+
+    {
       const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
       const page = await context.newPage();
       await page.goto(base + "/", { waitUntil: "networkidle" });

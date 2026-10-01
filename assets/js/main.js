@@ -387,6 +387,43 @@
     }
     function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
     function move(dir) { track.scrollBy({ left: dir * step(), behavior: reduce ? "auto" : "smooth" }); }
+    /* Maus-Ziehen auf dem Desktop (Touch und Stift scrollen nativ). Während des Ziehens ist Snap aus, danach rastet der Streifen ein. */
+    var drag = null, suppressClick = false;
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      drag = { id: e.pointerId, x: e.clientX, left: track.scrollLeft, moved: false };
+    });
+    track.addEventListener("pointermove", function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x;
+      if (!drag.moved) {
+        if (Math.abs(dx) < 6) return;                      // darunter bleibt es ein Klick
+        drag.moved = true;
+        track.classList.add("is-dragging");
+        try { track.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      track.scrollLeft = drag.left - dx;
+    });
+    function snapLefts() { var pad = parseFloat(getComputedStyle(track).paddingLeft) || 0; return items.map(function (it) { return it.offsetLeft - pad; }); }
+    function nearest(list, x) { var best = 0; list.forEach(function (v, i) { if (Math.abs(v - x) < Math.abs(list[best] - x)) best = i; }); return best; }
+    function endDrag(e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var d = drag, dx = e.clientX - d.x;
+      drag = null;
+      if (!d.moved) return;
+      try { track.releasePointerCapture(e.pointerId); } catch (err) {}
+      suppressClick = true;                                // der Klick nach dem Ziehen darf keinen Link öffnen
+      setTimeout(function () { suppressClick = false; }, 120);
+      // Wie ein Wisch: ein Zug über 60 px läuft immer mindestens bis zur nächsten Kachel weiter, sonst springt ein breiter Streifen zurück.
+      var lefts = snapLefts(), from = nearest(lefts, d.left), to = nearest(lefts, track.scrollLeft);
+      if (Math.abs(dx) > 60) to = dx < 0 ? Math.max(to, Math.min(from + 1, items.length - 1)) : Math.min(to, Math.max(from - 1, 0));
+      track.scrollTo({ left: Math.max(0, lefts[to]), behavior: reduce ? "auto" : "smooth" });
+      setTimeout(function () { track.classList.remove("is-dragging"); }, reduce ? 0 : 450);
+    }
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("click", function (e) { if (suppressClick) { e.preventDefault(); e.stopPropagation(); } }, true);
+    track.addEventListener("dragstart", function (e) { e.preventDefault(); });
     prev.addEventListener("click", function () { move(-1); });
     next.addEventListener("click", function () { move(1); });
     track.addEventListener("scroll", queue, { passive: true });

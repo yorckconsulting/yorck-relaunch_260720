@@ -155,6 +155,8 @@ p { margin: 0; }
 /* ---------- Header ---------- */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px var(--gutter); transition: background .3s var(--ease), padding .3s var(--ease), box-shadow .3s var(--ease); }
 .site-header.is-scrolled { background: rgba(255, 255, 255, .98); backdrop-filter: saturate(150%) blur(12px); padding-block: 10px; box-shadow: 0 1px 0 var(--line); }
+/* backdrop-filter macht die Kopfzeile zum Bezugsrahmen für position: fixed: das geöffnete Menü wäre nur so hoch wie die Kopfzeile. */
+body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: none; }
 .brand { display: flex; flex-direction: column; }
 .nav { display: flex; align-items: center; gap: 28px; }
 .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; margin: 0; padding: 0; }
@@ -227,14 +229,14 @@ p { margin: 0; }
 .about-deco--facade { left: 84vw; top: 64vh; width: 17vw; height: 46vh; object-fit: cover; object-position: center; z-index: 1; }
 .about-deco--espresso { left: 74vw; top: 77vh; width: 11vw; z-index: 2; }
 
-/* Unter 1121px: General und Fassade stehen als Paar unter dem Text (Champagner und Espresso entfallen). */
+/* Unter 1121px: Collage am unteren Rand der Sektion. Der General (gerade) und das Haus stehen bündig auf der Unterkante und berühren sich nur leicht,
+   Champagner schneidet rechts am Rand an, die Kaffeetasse liegt oben auf dem Haus. Maße in --u (1 % der Breite, bis 560 px Breite, danach zentriert). */
 @media (max-width: 1120px) {
-  .about-section { display: grid; grid-template-columns: 1fr 1fr; align-items: center; column-gap: clamp(10px, 3vw, 20px); padding-inline: var(--gutter); padding-bottom: clamp(48px, 8vw, 80px); }
-  .about-section > .container { grid-column: 1 / -1; grid-row: 1; width: auto; margin-inline: 0; }
-  .about-deco--champagne, .about-deco--espresso { display: none; }
-  .about-deco--portrait, .about-deco--facade { position: static; left: auto; top: auto; width: 100%; height: auto; max-width: 300px; z-index: 1; margin-top: clamp(28px, 6vw, 44px); }
-  .about-deco--portrait { grid-row: 2; grid-column: 1; justify-self: end; transform: rotate(-3deg); }
-  .about-deco--facade { grid-row: 2; grid-column: 2; justify-self: start; transform: rotate(3deg); }
+  .about-section { --u: min(1vw, 5.6px); --ax: max(0px, calc((100vw - 560px) / 2)); padding-bottom: calc(80 * var(--u)); }
+  .about-deco--portrait { left: calc(var(--ax) + 3 * var(--u)); top: auto; bottom: 0; width: calc(52 * var(--u)); height: auto; transform: none; z-index: 2; }
+  .about-deco--facade { left: calc(var(--ax) + 53 * var(--u)); top: auto; bottom: 0; width: calc(46 * var(--u)); height: auto; transform: none; z-index: 1; }
+  .about-deco--espresso { left: calc(var(--ax) + 52 * var(--u)); top: auto; bottom: calc(33 * var(--u)); width: calc(27 * var(--u)); transform: rotate(-8deg); z-index: 3; }
+  .about-deco--champagne { left: calc(var(--ax) + 79 * var(--u)); top: auto; bottom: calc(38 * var(--u)); width: calc(24 * var(--u)); transform: rotate(16deg); z-index: 3; }
 }
 
 /* ---------- Arbeitsweise: Abstand Zitat -> Text darunter verkleinern ---------- */
@@ -287,6 +289,9 @@ p { margin: 0; }
 .strip__track { position: relative; display: flex; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none;
   --strip-pad: var(--gutter); scroll-padding-inline: var(--strip-pad); padding: 14px var(--strip-pad) 26px; }
 .strip__track::-webkit-scrollbar { display: none; }
+@media (hover: hover) and (pointer: fine) { .strip__track { cursor: grab; } }
+.strip__track.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; -webkit-user-select: none; }
+.strip__track a, .strip__track img { -webkit-user-drag: none; }
 .strip__track > * { flex: 0 0 auto; scroll-snap-align: start; }
 .strip__track:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
 #team .strip__track { gap: clamp(28px, 4vw, 52px); }

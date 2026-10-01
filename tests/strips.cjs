@@ -95,6 +95,19 @@ async function waitFor(page, id, predicate, message) {
           await track.hover();
           await page.mouse.wheel(500, 0);
           await waitFor(page, id, "(track) => track.scrollLeft > 20", `${label}: horizontal wheel/trackpad must scroll`);
+
+          await track.evaluate((el) => { el.scrollLeft = 0; });
+          const trackBox = await track.boundingBox();
+          const startX = trackBox.x + trackBox.width * 0.7, dragY = trackBox.y + Math.min(trackBox.height / 2, 200);
+          const urlBefore = page.url();
+          await page.mouse.move(startX, dragY);
+          await page.mouse.down();
+          await page.mouse.move(startX - 300, dragY, { steps: 12 });
+          await page.mouse.up();
+          await waitFor(page, id, "(track) => track.scrollLeft > 100", `${label}: dragging with the mouse must scroll`);
+          await page.waitForTimeout(800);
+          assert.ok((await scrollLeft(page, id)) > 100, `${label}: the strip must stay advanced after the drag, not snap back`);
+          assert.equal(page.url(), urlBefore, `${label}: a drag must not open the link under the pointer`);
         }
       }
 
