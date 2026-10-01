@@ -177,8 +177,11 @@ p { margin: 0; }
 .hero__lamp { position: absolute; z-index: -1; width: auto; max-width: none; pointer-events: none; filter: drop-shadow(0 20px 30px rgba(20,30,50,.18)); transform-origin: bottom center; }
 .hero__lamp--warm { right: -7%; bottom: 0; height: clamp(440px, 84vh, 980px); }
 .hero__inner { position: relative; width: 100%; max-width: 1100px; min-width: 0; }
-.hero .display { max-width: 100%; min-width: 0; font-size: clamp(2.7rem, 9vw, 6.8rem); line-height: .94; overflow-wrap: anywhere; word-break: normal; hyphens: auto; }
-.hero__sub { max-width: 620px; min-width: 0; margin: 26px auto 0; overflow-wrap: anywhere; word-break: normal; }
+.hero .display { max-width: 100%; min-width: 0; font-size: clamp(2.7rem, 9vw, 6.8rem); line-height: .94; overflow-wrap: normal; word-break: normal; hyphens: manual; text-wrap: balance; }
+.hero__sub { max-width: 620px; min-width: 0; margin: 26px auto 0; overflow-wrap: normal; word-break: normal; text-wrap: balance; }
+.hero__sub span { white-space: nowrap; }
+/* Mobil: Schrift so, dass "ORGANISATION." (ca. 7,3 em) die Breite füllt, nie getrennt wird und die Größe stufenlos in die Desktop-Regel übergeht (ab 604 px = 9vw). */
+@media (max-width: 603px) { .hero .display { font-size: clamp(1.9rem, calc((100vw - 2 * max(16px, var(--gutter))) / 7.8), 3.4rem); } }
 .hero__logo { height: clamp(56px, 8vw, 90px); aspect-ratio: 1154 / 453; width: auto; margin: 0 auto 26px; background: var(--ink); -webkit-mask: url("../img/logo.svg") center / contain no-repeat; mask: url("../img/logo.svg") center / contain no-repeat; }
 .hero__scroll { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: var(--font-display); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 .hero__scroll span { width: 1px; height: 34px; background: var(--ink); animation: scrollcue 1.8s var(--ease) infinite; transform-origin: top; }
@@ -548,7 +551,6 @@ p { margin: 0; }
 }
 @media (max-width: 430px) {
   .hero { padding-inline: max(16px, var(--gutter)); }
-  .hero .display { font-size: clamp(2.2rem, 11vw, 2.95rem); }
   .hero__sub { font-size: clamp(1rem, 4.6vw, 1.18rem); }
 }
 @media (max-height: 520px) and (max-width: 920px) and (orientation: landscape) {
