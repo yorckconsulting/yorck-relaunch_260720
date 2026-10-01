@@ -106,8 +106,8 @@ async function main() {
 
     pagesServer = startServer(
       npxCommand,
-      ["--no-install", "wrangler", "pages", "dev", ".pages-dist", "--ip", "127.0.0.1", "--port", "8788", "--log-level", "error"],
-      "Cloudflare Pages runtime"
+      ["--no-install", "wrangler", "dev", "--ip", "127.0.0.1", "--port", "8788", "--log-level", "error"],
+      "Cloudflare Worker runtime"
     );
     await waitForServer(pagesServer, "http://127.0.0.1:8788/", 45000);
     await run(npmCommand, ["run", "test:pages", "--", "http://127.0.0.1:8788"]);
