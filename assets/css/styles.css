@@ -312,7 +312,7 @@ p { margin: 0; }
 .tile__media img[src*="insight-hochschule-workshop"] { object-position: 50% 0%; }
 .tile__media img[src*="insight-empowered"] { object-position: 50% 45%; }
 .tile__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; color: var(--tile-color, var(--yellow)); }
+.tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: var(--tile-color, var(--yellow)); }
 .tile h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: -.01em; overflow-wrap: anywhere; hyphens: auto; }
 .tile__excerpt { color: var(--muted); font-size: .95rem; flex: 1; text-align: justify; hyphens: auto; }
 .tile__link { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .04em; font-weight: 700; font-size: .78rem; color: var(--ink); display: inline-flex; gap: 7px; align-items: center; }
@@ -405,7 +405,7 @@ p { margin: 0; }
 .site-footer a:hover { color: #fff; }
 .footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.12); }
 .footer__cols { display: flex; gap: clamp(28px, 6vw, 72px); flex-wrap: wrap; }
-.footer__col h4 { font-family: var(--font-display); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 0 0 14px; font-weight: 700; }
+.footer__col h4 { font-family: var(--font-display); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 0 0 14px; font-weight: 700; }
 .footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; font-size: .94rem; }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: .84rem; color: rgba(255,255,255,.5); }
 
@@ -538,7 +538,7 @@ p { margin: 0; }
 .related { padding-block: clamp(52px, 7vw, 90px); background: color-mix(in srgb, var(--ink) 4%, var(--paper)); }
 .related__head { margin-bottom: 30px; }
 .related__head h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
-@media (max-width: 620px) { .article-meta { font-size: .72rem; } }
+@media (max-width: 620px) { .article-meta { font-size: .75rem; } }
 
 /* Masthead-Variante: Titelkarte/Foto oben als reines Bildband, Titel & Meta
    darunter auf hellem Grund (löst Kontrastprobleme heller Fotos). Additiv —
@@ -592,4 +592,29 @@ p { margin: 0; }
   .nav.is-open .nav-links { gap: 0; }
   .nav.is-open .nav-links a { font-size: 1.3rem; padding-block: 2px; }
   .nav.is-open .nav-cta { margin-top: 10px; padding-block: 9px; }
+}
+
+/* ---------- Typografie und Mobile-Feinschliff ---------- */
+/* Überschriften werden nie mitten im Wort getrennt (Safari trennte "Zusammenar-beit", "Aufstel-len"); zu lange Wörter brechen nur als letzter Ausweg. */
+h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .article-hero h1, .contact__headline, .prose blockquote, .prose blockquote p { overflow-wrap: break-word; hyphens: manual; }
+.all-link { color: var(--cyan); }
+@media (max-width: 600px) {
+  /* Blocksatz erzeugt auf schmalen Spalten Lücken und Trennungen: linksbündig */
+  .lead, .vision__body p, #ueber-uns .about-text p, .journey-intro p, .journey__step p, .tile__excerpt, .wheel__detail p, .team-tile--info p, .prose p, .prose li { text-align: left; }
+}
+@media (max-width: 480px) {
+  h2 { font-size: clamp(1.55rem, 7.4vw, 2rem); }
+  .contact__headline { font-size: clamp(1.55rem, 7.4vw, 2.2rem); }
+  .article-hero h1, .article-masthead-meta h1 { font-size: clamp(1.7rem, 8vw, 2.1rem); }
+}
+@media (max-width: 720px) {
+  .hero__sub { color: var(--ink-soft); }
+  .section--skyphoto .tile__body { padding-inline: 0; }
+  .all-link { display: inline-flex; align-items: center; min-height: 44px; color: #fff; font-weight: 700; font-size: 1rem; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+  .brand { display: inline-flex; align-items: center; min-height: 44px; }
+  .linkedin-link { width: 44px; height: 44px; }
+  .back-link { min-height: 44px; margin-top: 32px; }
+  .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer__col ul { gap: 0; }
+  .contact__email { padding-block: 10px; }
 }
