@@ -285,12 +285,13 @@ p { margin: 0; }
    Die nächste Kachel ragt angeschnitten ins Bild und zeigt, dass der Streifen bewegt werden kann. */
 .strip { position: relative; }
 .strip__track { position: relative; display: flex; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  --strip-pad: max(var(--gutter), calc((100vw - var(--container)) / 2)); scroll-padding-inline: var(--strip-pad); padding: 14px var(--strip-pad) 26px; }
+  --strip-pad: var(--gutter); scroll-padding-inline: var(--strip-pad); padding: 14px var(--strip-pad) 26px; }
 .strip__track::-webkit-scrollbar { display: none; }
 .strip__track > * { flex: 0 0 auto; scroll-snap-align: start; }
 .strip__track:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
 #team .strip__track { gap: clamp(28px, 4vw, 52px); }
-.strip__nav { display: flex; align-items: center; gap: 14px; width: min(var(--container), 100% - calc(var(--gutter) * 2)); margin: 6px auto 0; }
+.strip__nav { display: flex; align-items: center; gap: 14px; padding-inline: var(--gutter); margin: 6px 0 0; }
+.strip + .container { width: auto; margin-inline: var(--gutter); }
 .strip__btn { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #fff; border-radius: 12px; background: rgba(255,255,255,.14); color: #fff; cursor: pointer; transition: background .2s, border-color .2s, color .2s, opacity .2s; }
 .strip__btn svg { width: 22px; height: 22px; display: block; }
 .strip__btn:first-child svg { transform: scaleX(-1); }
@@ -320,6 +321,10 @@ p { margin: 0; }
 /* ---------- Komplizen (Logos) ---------- */
 .komplizen .marquee__track { gap: clamp(40px, 6vw, 80px); align-items: center; }
 .komplizen img { height: 62px; width: auto; max-width: 300px; object-fit: contain; }
+@media (max-width: 720px) {
+  .komplizen .marquee__track { gap: 32px; }
+  .komplizen img { height: 38px; max-width: 190px; }
+}
 /* Reine Logos ohne verlinkte Detailseite: kein Hover-Feedback (keine Klick-Suggestion). */
 /* Hover lässt die Logos bewusst weiterlaufen; Fokus und Gedrückthalten pausieren. */
 
@@ -361,22 +366,22 @@ p { margin: 0; }
 .team-tile--card .linkedin-link { position: absolute; right: 14px; bottom: 14px; background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
 .team-tile--card .linkedin-link:hover { background: var(--cyan); }
 .team-tile--card { position: relative; display: block; overflow: hidden; }
-/* Mobil: kompakte Profilkarte. Foto im ungeschnittenen 2:3-Format links neben Name, Rolle und LinkedIn, darunter Text und Hashtags.
-   Die Karte ist 80vw breit (nächste Karte schaut heraus) und etwa 470 px hoch, damit die Pfeile darunter im Blick bleiben. */
+/* Mobil: alle Profile gleich aufgebaut (auch Stefano) und gleich groß. Foto im ungeschnittenen 2:3-Format links,
+   rechts Name oben, Rolle darunter, LinkedIn-Icon bündig mit der Unterkante des Fotos, darunter Text und Hashtags.
+   Karte 80vw breit (nächste Karte schaut heraus), alle Karten so hoch wie die höchste. */
 @media (max-width: 720px) {
-  #team .strip__track { gap: 16px; align-items: flex-start; }
-  .team-pair { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr) auto auto; column-gap: 14px; width: min(80vw, 330px); padding: 14px; background: var(--paper); }
-  .team-tile--info { display: contents; }
-  .team-pair > .team-tile--photo { grid-column: 1; grid-row: 1 / 4; width: 96px; height: 144px; }
-  .team-tile--photo img { object-position: 50% 0%; }
-  .team-pair h3 { grid-column: 2; grid-row: 1; font-size: 1rem; align-self: end; }
-  .team-pair .team-tile__role { grid-column: 2; grid-row: 2; font-size: .7rem; margin-top: 4px; hyphens: manual; overflow-wrap: normal; }
-  .team-pair .linkedin-link { grid-column: 2; grid-row: 3; align-self: start; justify-self: start; margin-top: 8px !important; }
-  .team-pair .team-tile--info p:not(.team-tile__role), .team-pair .team-tile--info > p:not(.team-tile__role) { grid-column: 1 / -1; grid-row: 4; margin-top: 10px; font-size: .8rem; line-height: 1.4; }
+  #team .strip__track { gap: 16px; }
+  .team-pair, .team-tile--card { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto auto auto auto auto; align-content: start; column-gap: 14px; width: min(80vw, 330px); height: auto; padding: 14px; background: var(--paper); overflow: visible; }
+  .team-tile--info, .team-tile__overlay { display: contents; }
+  .team-pair > .team-tile--photo, .team-tile--card .team-tile__photo-link { grid-column: 1; grid-row: 1 / 4; position: static; display: block; width: 96px; height: 152px; overflow: hidden; }
+  .team-tile--card picture { position: static; display: block; width: 100%; height: 100%; }
+  .team-tile--photo picture, .team-tile--card picture { display: block; width: 100%; height: 100%; }
+  .team-tile--photo img, .team-tile--card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+  .team-pair h3, .section--skyphoto .team-tile--card .team-tile__overlay .team-tile__name { grid-column: 2; grid-row: 1; align-self: start; font-size: .95rem; color: var(--ink); text-shadow: none; }
+  .team-pair .team-tile__role, .section--skyphoto .team-tile--card .team-tile__overlay .team-tile__role { grid-column: 2; grid-row: 2; align-self: start; margin-top: 4px; font-size: .7rem; hyphens: manual; overflow-wrap: normal; color: var(--cyan); text-shadow: none; }
+  .team-pair .linkedin-link, .team-tile--card .linkedin-link { grid-column: 2; grid-row: 3; position: static; align-self: end; justify-self: start; margin: 0 !important; background: var(--ink); color: #fff; box-shadow: none; }
+  .team-pair .team-tile--info p:not(.team-tile__role) { grid-column: 1 / -1; grid-row: 4; margin-top: 10px; font-size: .8rem; line-height: 1.4; }
   .team-pair .team-hashtags { grid-column: 1 / -1; grid-row: 5; margin-top: 8px; font-size: .68rem; gap: 4px 10px; }
-  .team-tile--card { width: min(80vw, 330px); height: auto; aspect-ratio: 2 / 3; }
-  .team-tile--card .team-tile__overlay { padding-right: 72px; }
-  .team-tile--card picture, .team-tile--card .team-tile__photo-link { position: absolute; inset: 0; }
 }
 .team-tile--card picture { display: block; width: 100%; height: 100%; }
 .team-tile--card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
