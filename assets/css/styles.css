@@ -343,6 +343,21 @@ p { margin: 0; }
 .team-tile--card .linkedin-link { position: absolute; right: 14px; bottom: 14px; background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
 .team-tile--card .linkedin-link:hover { background: var(--cyan); }
 .team-tile--card { position: relative; display: block; overflow: hidden; }
+/* Mobil: Profile als hochkante Karte (Foto oben, Text darunter), 84vw breit, damit sie vollständig in den Bildschirm passen. */
+@media (max-width: 720px) {
+  .team-pair { flex-direction: column; gap: 0; width: min(84vw, 340px); }
+  .team-pair > .team-tile { width: 100%; }
+  .team-tile { width: min(84vw, 340px); height: auto; }
+  .team-tile--photo { aspect-ratio: 4 / 3; }
+  .team-tile--photo img { object-position: 50% 12%; }
+  .team-tile--info { flex: 1; overflow: visible; padding: 18px 20px 20px; gap: 7px; }
+  .team-tile--info h3 { font-size: 1.1rem; }
+  .team-tile--info p { font-size: .85rem; line-height: 1.45; }
+  .team-hashtags { margin-top: 2px; font-size: .72rem; gap: 4px 10px; }
+  .team-tile--info .linkedin-link { margin-top: auto !important; align-self: flex-start; }
+  .team-tile--card { min-height: 460px; }
+  .team-tile--card picture, .team-tile--card .team-tile__photo-link { position: absolute; inset: 0; }
+}
 .team-tile--card picture { display: block; width: 100%; height: 100%; }
 .team-tile--card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
 .team-tile--card:hover img { transform: scale(1.045); }
