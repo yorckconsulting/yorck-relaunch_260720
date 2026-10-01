@@ -107,7 +107,7 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 720 && nav.classList.contains("is-open")) setNav(false, false);
+      if (window.innerWidth > 900 && nav.classList.contains("is-open")) setNav(false, false);
     });
   }
 
