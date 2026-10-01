@@ -16,11 +16,11 @@ Die Browserinstallation ist nur nach einer frischen Einrichtung beziehungsweise 
 
 Die Vorschau unter `http://127.0.0.1:8765` ist für Oberfläche, Mobile und Performance. Sie bildet Functions, Redirects und `_headers` nicht ab.
 
-Für den echten Pages-Runtime:
+Für die echte Worker-Runtime mit Redirects und `_headers`:
 
 ```bash
 npm run prepare:pages
-npx wrangler pages dev .pages-dist --port 8788
+npx wrangler dev --port 8788
 ```
 
 `.pages-dist` enthält ausschließlich auslieferbare Dateien. Tests, Dependencies, Dokumentation und lokale Secrets werden nicht deployt.
@@ -44,7 +44,7 @@ npm test
 ## Security- und Deployment-Modell
 
 - `_headers` schützt statische Antworten mit CSP, HSTS, Framing-, MIME-, Referrer- und Permissions-Regeln.
-- Die einzige verbliebene Pages Function (`_assets/[[path]].js`, 410-Antwort für alte Canva-Assets) erhält dieselben Schutzklassen direkt im Function-Code, weil `_headers` nicht auf Function-Antworten angewendet wird.
+- Die Pages Function `functions/_assets/[[path]].js` (410 für alte Canva-Assets) läuft unter der Workers-Konfiguration nicht. `/_assets/…` liefert aktuell 404.
 - CSP erlaubt nur eigene Scripts, die Cloudflare-Web-Analytics-Ressource und die gehashten JSON-LD-Blöcke. Inline-Styles bleiben wegen des bestehenden unveränderten Designs vorerst erlaubt.
 - Preview-Deployments müssen per Cloudflare Access geschützt werden; zusätzlich `X-Robots-Tag: noindex` auf der Preview-URL verifizieren.
 - Die HSTS-Regel enthält absichtlich weder `includeSubDomains` noch `preload`, bis alle Subdomains geprüft sind.
@@ -55,7 +55,7 @@ npm test
 npm test
 ```
 
-Der vollständige Befehl startet und beendet seine lokalen Server selbst. Er prüft Integrität, alle Seiten in Chromium/Firefox/WebKit, Mobile und Accessibility, Performance/CWV sowie die Cloudflare-Pages-/CSP-Runtime. Für die schnelle Prüfung ohne Browser steht weiterhin Folgendes bereit:
+Der vollständige Befehl startet und beendet seine lokalen Server selbst. Er prüft Integrität, alle Seiten in Chromium/Firefox/WebKit, Mobile und Accessibility, Performance/CWV sowie die Worker-/CSP-Runtime. Für die schnelle Prüfung ohne Browser steht weiterhin Folgendes bereit:
 
 ```bash
 npm run test:unit
@@ -72,8 +72,8 @@ Die einzelnen `test:*`-Befehle bleiben für gezielte Fehlersuche erhalten. Brows
 ## Qualität, Direktupload und Monitoring
 
 - `npm test` ist die verbindliche lokale Qualitätsstufe vor jeder Veröffentlichung.
-- Das Yorck-Team verwaltet die Projektstände in seiner eigenen Cloud-Struktur; Git und GitHub gehören nicht zum aktiven Betriebsmodell.
-- Cloudflare Pages wird nach der einmaligen Anmeldung per Wrangler-Direktupload aus `.pages-dist` beliefert. Für den aktuellen Mailto-basierten Umfang werden keine Laufzeit-Secrets benötigt.
+- Der Code liegt auf GitHub. Cloudflare Workers Builds baut jeden Branch als Vorschau und `main` als Produktion (Details in `OPERATIONS-MONITORING.md`). Änderungen laufen über Branches und Pull Requests, nie direkt auf `main`.
+- Für den aktuellen Mailto-basierten Umfang werden keine Laufzeit-Secrets benötigt.
 - `scripts/check-production.mjs` prüft wichtige 200/301/404/405/410-Antworten und Security-Header. Ein externer Zeitplan dafür bleibt bis zur Monitoring-Einrichtung offen.
 - `OPERATIONS-MONITORING.md` beschreibt Preview, Cutover, Search Console, Logs, Alarme und Rollback.
 
