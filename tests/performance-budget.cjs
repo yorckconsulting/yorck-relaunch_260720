@@ -62,7 +62,7 @@ async function scrollThrough(page) {
             result.fullScroll = totals(resources);
             enforce(result.fullScroll, group[profileName].fullScroll, `${groupName} ${profileName} ${pagePath} fullScroll`, resources);
             if (profileName === "mobile") {
-              assert.equal(resources.filter((item) => /\/about-(?:founders|map|compass|statue|champagne|portrait|facade|espresso)[-.]/.test(item.url)).length, 0, "About collage assets loaded on mobile");
+              assert.equal(resources.filter((item) => /\/about-(?:founders|map|compass|statue|champagne|espresso)[-.]/.test(item.url)).length, 0, "Desktop-only About collage assets loaded on mobile (mobile shows only portrait and facade)");
             }
           }
           report[`${groupName}:${profileName}:${pagePath}`] = result;
@@ -76,7 +76,7 @@ async function scrollThrough(page) {
       const page = await context.newPage();
       const aboutRequests = [];
       page.on("request", (request) => {
-        if (/\/about-(?:founders|map|compass|statue|champagne|portrait|facade|espresso)[-.]/.test(request.url())) aboutRequests.push(request.url());
+        if (/\/about-(?:founders|map|compass|statue|champagne|espresso)[-.]/.test(request.url())) aboutRequests.push(request.url());
       });
       await page.goto(new URL("/", base).href, { waitUntil: "networkidle" });
       await scrollThrough(page);

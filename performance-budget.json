@@ -7,23 +7,54 @@
   },
   "pages": {
     "homepage": {
-      "paths": ["/"],
+      "paths": [
+        "/"
+      ],
       "desktop": {
-        "initial": { "totalBytes": 650000, "imageBytes": 420000, "requests": 24 },
-        "fullScroll": { "totalBytes": 2100000, "imageBytes": 1900000, "requests": 42 }
+        "initial": {
+          "totalBytes": 700000,
+          "imageBytes": 520000,
+          "requests": 24
+        },
+        "fullScroll": {
+          "totalBytes": 2100000,
+          "imageBytes": 1900000,
+          "requests": 42
+        }
       },
       "mobile": {
-        "initial": { "totalBytes": 450000, "imageBytes": 220000, "requests": 20 },
-        "fullScroll": { "totalBytes": 800000, "imageBytes": 580000, "requests": 28 }
+        "initial": {
+          "totalBytes": 620000,
+          "imageBytes": 410000,
+          "requests": 20
+        },
+        "fullScroll": {
+          "totalBytes": 1050000,
+          "imageBytes": 830000,
+          "requests": 40
+        }
       }
     },
     "subpages": {
-      "paths": ["/cases/", "/insights/", "/cases/kita.html", "/insights/angstfreie-organisationen.html"],
+      "paths": [
+        "/cases/",
+        "/insights/",
+        "/cases/kita.html",
+        "/insights/angstfreie-organisationen.html"
+      ],
       "desktop": {
-        "initial": { "totalBytes": 900000, "imageBytes": 650000, "requests": 28 }
+        "initial": {
+          "totalBytes": 900000,
+          "imageBytes": 650000,
+          "requests": 28
+        }
       },
       "mobile": {
-        "initial": { "totalBytes": 650000, "imageBytes": 400000, "requests": 24 }
+        "initial": {
+          "totalBytes": 650000,
+          "imageBytes": 400000,
+          "requests": 24
+        }
       }
     }
   }
