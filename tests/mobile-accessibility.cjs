@@ -23,12 +23,12 @@ async function metrics(page) {
     return {
       viewport,
       scrollWidth: document.documentElement.scrollWidth,
-      widthWithoutMarquees: widthWithout(".marquee"),
+      widthWithoutMarquees: widthWithout(".marquee, .strip"),
       widthWithoutHero: widthWithout(".hero"),
       bodyOverflowX: getComputedStyle(document.body).overflowX,
       title: rect(".hero .display"),
       subline: rect(".hero__sub"),
-      offenders: [...document.querySelectorAll("body *")].filter((el) => !el.closest(".marquee") && !el.matches(".hero__lamp") && !el.closest("[data-parallax-img]")).map((el) => {
+      offenders: [...document.querySelectorAll("body *")].filter((el) => !el.closest(".marquee, .strip") && !el.matches(".hero__lamp") && !el.closest("[data-parallax-img]")).map((el) => {
         const box = el.getBoundingClientRect();
         return { tag: el.tagName, className: typeof el.className === "string" ? el.className : "", text: (el.textContent || "").trim().slice(0, 40), left: Math.round(box.left), right: Math.round(box.right), width: Math.round(box.width) };
       }).filter((item) => item.left < -1 || item.right > viewport + 1).sort((a, b) => b.right - a.right).slice(0, 20),
@@ -139,11 +139,10 @@ async function metrics(page) {
       const page = await context.newPage();
       await page.goto(base + "/", { waitUntil: "networkidle" });
       assert.equal(await page.locator(".marquee__toggle").count(), 0);
-      const firstMarquee = page.locator(".marquee").first();
-      await firstMarquee.hover();
-      assert.equal(await firstMarquee.locator(".marquee__track").evaluate((el) => getComputedStyle(el).animationPlayState), "paused");
-      await page.mouse.move(0, 0);
-      assert.equal(await firstMarquee.locator(".marquee__track").evaluate((el) => getComputedStyle(el).animationPlayState), "running");
+      const logoMarquee = page.locator(".komplizen .marquee");
+      await logoMarquee.hover();
+      assert.equal(await logoMarquee.locator(".marquee__track").evaluate((el) => getComputedStyle(el).animationPlayState), "running", "logo marquee keeps running on hover");
+      assert.equal(await page.locator(".strip__track").evaluateAll((els) => els.every((el) => getComputedStyle(el).animationName === "none")), true, "Cases, Insights and Team have no auto-scroll");
 
       await page.locator(".seg").nth(2).focus();
       await page.keyboard.press("Space");
@@ -160,6 +159,7 @@ async function metrics(page) {
       assert.equal(mailLink, "mailto:info@yorck-consulting.com");
       assert.equal(await page.locator(".marquee__toggle").count(), 0);
       assert.ok((await page.locator(".marquee").first().evaluate((el) => getComputedStyle(el).overflowX)) === "auto");
+      assert.equal(await page.locator(".strip__track").evaluateAll((els) => els.every((el) => getComputedStyle(el).overflowX === "auto")), true, "strips scroll natively without JavaScript");
       await context.close();
     }
 

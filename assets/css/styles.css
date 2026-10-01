@@ -281,6 +281,25 @@ p { margin: 0; }
 .js .marquee--draggable.is-dragging, .js .marquee--draggable.is-dragging * { user-select: none; -webkit-user-select: none; }
 .js .marquee--draggable img, .js .marquee--draggable a { -webkit-user-drag: none; }
 
+/* ---------- Scroll-Snap-Streifen (Cases, Insights, Team): nativer Scroll, kein Auto-Lauf ----------
+   Trackpad, Shift+Rad, Pfeiltasten und Touch-Momentum liefert der Browser; Pfeile und Zähler ergänzt main.js.
+   Die nächste Kachel ragt angeschnitten ins Bild und zeigt, dass der Streifen bewegt werden kann. */
+.strip { position: relative; }
+.strip__track { position: relative; display: flex; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  --strip-pad: max(var(--gutter), calc((100vw - var(--container)) / 2)); scroll-padding-inline: var(--strip-pad); padding: 14px var(--strip-pad) 26px; }
+.strip__track::-webkit-scrollbar { display: none; }
+.strip__track > * { flex: 0 0 auto; scroll-snap-align: start; }
+.strip__track:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
+#team .strip__track { gap: clamp(28px, 4vw, 52px); }
+.strip__nav { display: flex; align-items: center; gap: 14px; width: min(var(--container), 100% - calc(var(--gutter) * 2)); margin: 6px auto 0; }
+.strip__btn { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #fff; border-radius: 12px; background: rgba(255,255,255,.14); color: #fff; cursor: pointer; transition: background .2s, border-color .2s, color .2s, opacity .2s; }
+.strip__btn svg { width: 22px; height: 22px; display: block; }
+.strip__btn:first-child svg { transform: scaleX(-1); }
+.strip__btn:hover:not(:disabled) { background: var(--cyan); border-color: var(--cyan); color: var(--ink); }
+.strip__btn:disabled { opacity: .4; cursor: default; }
+.strip__btn:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+.strip__count { min-width: 4.6ch; text-align: center; font-family: var(--font-display); font-weight: 700; letter-spacing: .08em; font-size: .85rem; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+
 /* Cases / Insights tiles in marquee */
 .tile { width: clamp(280px, 32vw, 380px); flex: 0 0 auto; display: flex; flex-direction: column; border-radius: 0; overflow: hidden; background: var(--paper); border: 2px solid var(--line); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
 .tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--tile-color, var(--yellow)); }
@@ -343,11 +362,11 @@ p { margin: 0; }
 .team-tile--card .linkedin-link { position: absolute; right: 14px; bottom: 14px; background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
 .team-tile--card .linkedin-link:hover { background: var(--cyan); }
 .team-tile--card { position: relative; display: block; overflow: hidden; }
-/* Mobil: Profile als hochkante Karte (Foto oben, Text darunter), 84vw breit, damit sie vollständig in den Bildschirm passen. */
+/* Mobil: Profile als hochkante Karte (Foto oben, Text darunter), 78vw breit (nächste Karte schaut heraus), damit sie vollständig in den Bildschirm passen. */
 @media (max-width: 720px) {
-  .team-pair { flex-direction: column; gap: 0; width: min(84vw, 340px); }
+  .team-pair { flex-direction: column; gap: 0; width: min(78vw, 340px); }
   .team-pair > .team-tile { width: 100%; }
-  .team-tile { width: min(84vw, 340px); height: auto; }
+  .team-tile { width: min(78vw, 340px); height: auto; }
   .team-tile--photo { aspect-ratio: 4 / 3; }
   .team-tile--photo img { object-position: 50% 12%; }
   .team-tile--info { flex: 1; overflow: visible; padding: 18px 20px 20px; gap: 7px; }

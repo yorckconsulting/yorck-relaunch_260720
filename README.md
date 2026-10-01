@@ -65,8 +65,9 @@ Die einzelnen `test:*`-Befehle bleiben für gezielte Fehlersuche erhalten. Brows
 
 ## Bewusste Bedien- und Designentscheidungen
 
+- Cases, Insights und Team sind native Scroll-Snap-Streifen ohne Auto-Lauf (Council-Entscheidung vom 01.10.2026, Transkript lokal): Wischen, Trackpad, Shift+Mausrad und Pfeiltasten gehen nativ, die nächste Kachel ragt angeschnitten herein, zwei Pfeil-Buttons (48 px) mit Zähler stehen darunter (`data-strip` in `index.html`, Logik in `main.js`, Test `tests/strips.cjs`).
 - Das Kompliz:innen-Marquee läuft bei Hover weiter. Tastaturfokus und Gedrückthalten pausieren; während des Gedrückthaltens kann die Reihe nach links und rechts gezogen werden. Bei Reduced Motion stoppt die automatische Bewegung und die Reihe wird scrollbar.
-- Es gibt keinen sichtbaren Pause-/Stop-Button.
+- Es gibt keinen sichtbaren Pause-/Stop-Button. Das Logo-Laufband bewegt sich weiterhin automatisch (offen: WCAG 2.2.2 verlangt dafür ein Pause-Mittel).
 - Die weiße Schrift der Artikel-Buttons auf Cyan, Pink und Grün bleibt als bewusst akzeptierte, eng begrenzte Kontrastausnahme unverändert. Alle anderen ernsten oder kritischen Axe-Befunde blockieren die Qualitätsprüfung.
 
 ## Qualität, Direktupload und Monitoring

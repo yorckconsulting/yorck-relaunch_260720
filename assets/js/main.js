@@ -365,6 +365,36 @@
     m.addEventListener("pointercancel", endDrag);
   }
 
+  /* ---------- Scroll-Snap-Streifen (Cases, Insights, Team): Pfeile und Zähler ---------- */
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  [].slice.call(document.querySelectorAll("[data-strip]")).forEach(function (strip) {
+    var track = strip.querySelector(".strip__track");
+    var items = track ? [].slice.call(track.children) : [];
+    if (!items.length) return;
+    var nav = document.createElement("div");
+    nav.className = "strip__nav";
+    nav.innerHTML = '<button type="button" class="strip__btn" aria-label="Zurück">' + ARROW + '</button><span class="strip__count" aria-hidden="true"></span><button type="button" class="strip__btn" aria-label="Weiter">' + ARROW + '</button>';
+    strip.appendChild(nav);
+    var prev = nav.children[0], count = nav.children[1], next = nav.children[2], queued = false;
+    function step() { return items[1] ? items[1].offsetLeft - items[0].offsetLeft : items[0].offsetWidth; }
+    function update() {
+      queued = false;
+      var x = track.scrollLeft, atEnd = x >= track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = x <= 2;
+      next.disabled = atEnd;
+      var idx = atEnd ? items.length - 1 : Math.max(0, Math.min(items.length - 1, Math.round(x / step())));
+      count.textContent = (idx + 1) + " / " + items.length;
+    }
+    function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+    function move(dir) { track.scrollBy({ left: dir * step(), behavior: reduce ? "auto" : "smooth" }); }
+    prev.addEventListener("click", function () { move(-1); });
+    next.addEventListener("click", function () { move(1); });
+    track.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    window.addEventListener("load", queue);
+    update();
+  });
+
   [].slice.call(document.querySelectorAll("[data-marquee]")).forEach(function (m) {
     var track = m.querySelector(".marquee__track");
     if (!track) return;

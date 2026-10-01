@@ -94,7 +94,7 @@ async function main() {
         BASE_URL: "http://127.0.0.1:8765"
       });
     }
-    for (const script of ["test:browser", "test:performance", "test:cwv"]) {
+    for (const script of ["test:browser", "test:strips", "test:performance", "test:cwv"]) {
       await run(npmCommand, ["run", script], {
         ...managedBrowserEnvironment,
         BROWSER: "chromium",
