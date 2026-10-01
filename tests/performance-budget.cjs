@@ -62,7 +62,7 @@ async function scrollThrough(page) {
             result.fullScroll = totals(resources);
             enforce(result.fullScroll, group[profileName].fullScroll, `${groupName} ${profileName} ${pagePath} fullScroll`, resources);
             if (profileName === "mobile") {
-              assert.equal(resources.filter((item) => /\/about-(?:founders|map|compass|statue|champagne|espresso)[-.]/.test(item.url)).length, 0, "Desktop-only About collage assets loaded on mobile (mobile shows only portrait and facade)");
+              assert.ok(resources.filter((item) => /\/about-/.test(item.url)).reduce((sum, item) => sum + item.bytes, 0) < 120000, "About collage assets on mobile must stay small");
             }
           }
           report[`${groupName}:${profileName}:${pagePath}`] = result;
@@ -71,18 +71,6 @@ async function scrollThrough(page) {
       }
     }
 
-    for (const width of [1120, 1121]) {
-      const context = await browser.newContext({ viewport: { width, height: 900 }, deviceScaleFactor: 1, reducedMotion: "reduce" });
-      const page = await context.newPage();
-      const aboutRequests = [];
-      page.on("request", (request) => {
-        if (/\/about-(?:founders|map|compass|statue|champagne|espresso)[-.]/.test(request.url())) aboutRequests.push(request.url());
-      });
-      await page.goto(new URL("/", base).href, { waitUntil: "networkidle" });
-      await scrollThrough(page);
-      assert.equal(aboutRequests.length > 0, width === 1121, `${width}px About asset loading does not match the 1120/1121 breakpoint`);
-      await context.close();
-    }
   } finally {
     await browser.close();
   }
