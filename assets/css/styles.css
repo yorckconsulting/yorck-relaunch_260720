@@ -328,6 +328,8 @@ p { margin: 0; }
 .team-tile--card picture { display: block; width: 100%; height: 100%; }
 .team-tile--card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
 .team-tile--card:hover img { transform: scale(1.045); }
+.team-tile__photo-link { display: block; width: 100%; height: 100%; }
+.team-tile--card .team-tile__overlay { pointer-events: none; }
 .team-tile__overlay { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(20px, 3vw, 28px); background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.78) 78%); }
 .team-tile__name { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 1.15rem; color: var(--cyan); margin: 0; overflow-wrap: anywhere; hyphens: auto; }
 .team-tile__overlay .team-tile__role { margin-top: 4px; }
