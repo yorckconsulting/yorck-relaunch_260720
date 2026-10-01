@@ -283,6 +283,12 @@ p { margin: 0; }
 .tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--tile-color, var(--yellow)); }
 .tile__media { display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: linear-gradient(150deg, color-mix(in srgb, var(--cyan) 12%, var(--paper)), color-mix(in srgb, var(--muted) 12%, var(--paper))); }
 .tile__media img { width: 100%; height: 100%; object-fit: cover; }
+/* Bewusst gewählte Bildausschnitte (16:10-Crop): Gesichter bleiben vollständig im Bild. Cover-Kachel bleibt unverändert. */
+.tile__media img[src*="insight-balloon"] { object-position: 50% 6%; }
+.tile__media img[src*="insight-birthday-team"] { object-position: 50% 9%; }
+.tile__media img[src*="insight-govtech"] { object-position: 50% 56%; }
+.tile__media img[src*="insight-hochschule-workshop"] { object-position: 50% 0%; }
+.tile__media img[src*="insight-empowered"] { object-position: 50% 45%; }
 .tile__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; color: var(--tile-color, var(--yellow)); }
 .tile h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: -.01em; overflow-wrap: anywhere; hyphens: auto; }
