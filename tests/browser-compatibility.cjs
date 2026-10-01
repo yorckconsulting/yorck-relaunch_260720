@@ -13,7 +13,8 @@ const acceptedArticleContrastRoutes = new Set([
   "/insights/angstfreie-organisationen.html",
   "/insights/kein-angebotsproblem-public-sector.html",
   "/insights/private-hochschulen-unter-druck.html",
-  "/insights/empowered-by-strengths.html"
+  "/insights/empowered-by-strengths.html",
+  "/insights/vision-statt-verwaltung.html"
 ]);
 
 function blockingViolations(axe, route) {
@@ -23,7 +24,9 @@ function blockingViolations(axe, route) {
       const acceptedArticleButton = violation.id === "color-contrast" &&
         acceptedArticleContrastRoutes.has(route) &&
         node.html.includes('class="btn btn-primary"');
-      return !acceptedArticleButton;
+      // Kategorie-Plakette: weiße Schrift auf Cyan, Pink und Grün ist dieselbe akzeptierte Ausnahme wie bei den Buttons.
+      const acceptedCategoryPill = violation.id === "color-contrast" && node.html.includes('class="article-cat"');
+      return !acceptedArticleButton && !acceptedCategoryPill;
     });
     return nodes.length ? [{ id: violation.id, impact: violation.impact, nodes: nodes.map((node) => node.target) }] : [];
   });

@@ -44,7 +44,7 @@ npm test
 ## Security- und Deployment-Modell
 
 - `_headers` schützt statische Antworten mit CSP, HSTS, Framing-, MIME-, Referrer- und Permissions-Regeln.
-- Die Pages Function `functions/_assets/[[path]].js` (410 für alte Canva-Assets) läuft unter der Workers-Konfiguration nicht. `/_assets/…` liefert aktuell 404.
+- `src/worker.js` beantwortet nur `/_assets/*` mit 410 (alte Canva-Assets, Code in `functions/_assets/[[path]].js`, Schutzheader direkt in der Antwort). Alles andere liefern die Static Assets direkt aus; unbekannte URLs zeigen `404.html`.
 - CSP erlaubt nur eigene Scripts, die Cloudflare-Web-Analytics-Ressource und die gehashten JSON-LD-Blöcke. Inline-Styles bleiben wegen des bestehenden unveränderten Designs vorerst erlaubt.
 - Preview-Deployments müssen per Cloudflare Access geschützt werden; zusätzlich `X-Robots-Tag: noindex` auf der Preview-URL verifizieren.
 - Die HSTS-Regel enthält absichtlich weder `includeSubDomains` noch `preload`, bis alle Subdomains geprüft sind.

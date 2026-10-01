@@ -20,7 +20,7 @@ Die Einstellungen stehen im Cloudflare-Dashboard unter *Workers und Pages → yo
 
 Ablauf: Jeder Branch erzeugt eine Vorschau-URL (`<branch>-yorck-relaunch260720.<konto>.workers.dev`). Nach `main` wird nur per Pull Request gemergt. Ein Merge nach `main` deployt sofort in Produktion.
 
-Hinweis: Die Pages Function `functions/_assets` (410 für alte Canva-Assets) läuft in dieser Konfiguration nicht. `/_assets/…` liefert 404 statt 410.
+Hinweis: `src/worker.js` läuft nur für `/_assets/*` (`run_worker_first` in `wrangler.jsonc`) und liefert dort 410 für alte Canva-Assets. Alle anderen Anfragen bedienen die Static Assets direkt; unbekannte URLs liefern `404.html` mit Status 404.
 
 ## Cloudflare vor Preview und Produktion
 
