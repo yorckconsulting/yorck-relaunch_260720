@@ -98,13 +98,13 @@ button { font: inherit; cursor: pointer; }
 .section--skyphoto #ueber-uns p, .section--skyphoto .statement {
   color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
 }
-.section--skyphoto .wheel-claim { color: var(--cyan); }
+.section--skyphoto .wheel-claim { color: #fff; }
 .section--skyphoto .tile { background: transparent; border: 0; }
 .section--skyphoto .tile h3, .section--skyphoto .tile__excerpt, .section--skyphoto .tile__link {
   color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
 }
 /* Case-/Insight-Kicker behält seine Tile-Farbe; der Schatten verbessert die Lesbarkeit. */
-.section--skyphoto .tile__kicker { text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+.section--skyphoto .tile__kicker { align-self: flex-start; padding: 3px 8px; border-radius: 4px; background: rgba(12, 26, 34, .55); text-shadow: none; }
 /* Weiße Team-Karten innerhalb eines Himmel-Fotos behalten dunklen Text. */
 .section--skyphoto .team-tile--info,
 .section--skyphoto .team-tile--info p,
@@ -392,7 +392,7 @@ p { margin: 0; }
 .contact__bg img { width: 100%; height: 100%; object-fit: cover; }
 .contact::before { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(0, 0, 0, .45); pointer-events: none; }
 .contact .eyebrow, .contact h2, .contact .display { color: #fff; }
-.contact__grid { position: relative; z-index: 1; max-width: 640px; }
+.contact__grid { position: relative; z-index: 1; max-width: 920px; }
 .contact__headline { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: 1.14; color: #fff; overflow-wrap: anywhere; }
 .contact__email { display: inline-block; max-width: 100%; margin-top: 26px; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--cyan); overflow-wrap: anywhere; }
 .contact__email:hover { color: #fff; }
@@ -597,7 +597,9 @@ p { margin: 0; }
 /* ---------- Typografie und Mobile-Feinschliff ---------- */
 /* Überschriften werden nie mitten im Wort getrennt (Safari trennte "Zusammenar-beit", "Aufstel-len"); zu lange Wörter brechen nur als letzter Ausweg. */
 h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .article-hero h1, .contact__headline, .prose blockquote, .prose blockquote p { overflow-wrap: break-word; hyphens: manual; }
-.all-link { color: var(--cyan); }
+.section--skyphoto .tile__body { padding-inline: 0; }
+.all-link { color: #fff; font-weight: 700; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+.all-link:hover { color: var(--cyan); }
 @media (max-width: 600px) {
   /* Blocksatz erzeugt auf schmalen Spalten Lücken und Trennungen: linksbündig */
   .lead, .vision__body p, #ueber-uns .about-text p, .journey-intro p, .journey__step p, .tile__excerpt, .wheel__detail p, .team-tile--info p, .prose p, .prose li { text-align: left; }
@@ -609,8 +611,7 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
 }
 @media (max-width: 720px) {
   .hero__sub { color: var(--ink-soft); }
-  .section--skyphoto .tile__body { padding-inline: 0; }
-  .all-link { display: inline-flex; align-items: center; min-height: 44px; color: #fff; font-weight: 700; font-size: 1rem; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+  .all-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 1rem; }
   .brand { display: inline-flex; align-items: center; min-height: 44px; }
   .linkedin-link { width: 44px; height: 44px; }
   .back-link { min-height: 44px; margin-top: 32px; }
@@ -618,3 +619,16 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
   .footer__col ul { gap: 0; }
   .contact__email { padding-block: 10px; }
 }
+
+/* Artikelbilder (16:8-Crop): Gesichter bleiben vollständig im Bild. */
+.article-figure img[src*="insight-balloon"] { object-position: 50% 5%; }
+.article-figure img[src*="insight-birthday-team"] { object-position: 50% 8%; }
+.article-figure img[src*="insight-staerken"] { object-position: 50% 0%; }
+.article-figure img[src*="insight-hochschule-workshop"] { object-position: 50% 25%; }
+.article-figure img[src*="insight-govtech"] { object-position: 50% 60%; }
+.article-figure img[src*="case-kita-presentation"] { object-position: 50% 2%; }
+.article-figure img[src*="case-wissen-laptop"] { object-position: 50% 10%; }
+
+/* Schmale Textblöcke im Blocksatz bilden große Wortlücken: linksbündig (lange Fließtexte bleiben im Blocksatz). */
+.lead, .tile__excerpt, .team-tile--info p, .journey__step p { text-align: left; }
+.hero .lead, .article-cta .lead { text-align: center; }
