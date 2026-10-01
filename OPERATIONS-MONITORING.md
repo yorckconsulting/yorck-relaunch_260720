@@ -6,29 +6,21 @@ Stand: 16.07.2026
 
 - `scripts/check-production.mjs` prüft Homepage, wichtige Unterseiten, Sitemap, Robots, `/home`-Redirects, echte 404, den 410-Asset-Namensraum und zentrale Security-Header.
 - `npm run social:check` prüft die 14 Social-Metadatensätze und Vorschaubilder rein lesend; `prepare:pages` blockiert bei einem veralteten Stand.
-- `npm test` prüft Unit/Integrität, CSP, Cloudflare-Pages-Routing, sämtliche Seiten in Chromium, Firefox und WebKit, Mobile, Performance-Budgets und lokale LCP-/CLS-Grenzen.
+- `npm test` prüft Unit/Integrität, CSP, Worker-Routing, sämtliche Seiten in Chromium, Firefox und WebKit, Mobile, Performance-Budgets und lokale LCP-/CLS-Grenzen.
 
-Das Projekt verwendet bewusst kein Git/GitHub. `npm test` ist deshalb vor jedem Direktupload verpflichtend, startet die statische Vorschau und die Pages-Runtime selbst und beendet beide auch bei einem Fehler zuverlässig. Die Pages-Runtime nutzt das in `wrangler.jsonc` festgeschriebene Kompatibilitätsdatum `2026-07-15`.
+Das Projekt liegt auf GitHub und ist mit einem Cloudflare-Worker (Workers Builds) verbunden. `npm test` ist vor jedem Merge nach `main` verpflichtend, startet die statische Vorschau und die Worker-Runtime selbst und beendet beide auch bei einem Fehler zuverlässig. Die Runtime nutzt das in `wrangler.jsonc` festgeschriebene Kompatibilitätsdatum `2026-07-15`.
 
-## Cloudflare-Direktupload
+## Cloudflare-Deployment über GitHub
 
-Einmalig meldet sich eine berechtigte Person im Browser an und legt das Direct-Upload-Projekt mit Produktionsbranch `main` an:
+Die Einstellungen stehen im Cloudflare-Dashboard unter *Workers und Pages → yorck-relaunch260720 → Einstellungen → Build*:
 
-```bash
-npx wrangler login
-npx wrangler pages project create
-```
+- Build-Befehl: `npm run social:sync && npm run prepare:pages`
+- Bereitstellungsbefehl (nur Produktionsbranch `main`): `npx wrangler deploy`
+- Versionsbefehl (alle anderen Branches): `npx wrangler versions upload`. Er darf nie `wrangler deploy` sein, sonst geht jeder Branch live.
 
-Danach wird ein geprüfter Stand zunächst als geschützte Preview und erst nach Abnahme als Produktion hochgeladen:
+Ablauf: Jeder Branch erzeugt eine Vorschau-URL (`<branch>-yorck-relaunch260720.<konto>.workers.dev`). Nach `main` wird nur per Pull Request gemergt. Ein Merge nach `main` deployt sofort in Produktion.
 
-```bash
-npm test
-npm run prepare:pages
-npx wrangler pages deploy .pages-dist --project-name <projektname> --branch preview
-npx wrangler pages deploy .pages-dist --project-name <projektname> --branch main
-```
-
-Der Upload läuft über Wrangler, damit die vorhandene Pages Function zuverlässig mit ausgeliefert wird. Für den aktuellen Mailto-basierten Funktionsumfang sind keine Runtime-Secrets erforderlich.
+Hinweis: Die Pages Function `functions/_assets` (410 für alte Canva-Assets) läuft in dieser Konfiguration nicht. `/_assets/…` liefert 404 statt 410.
 
 ## Cloudflare vor Preview und Produktion
 
