@@ -561,8 +561,8 @@ p { margin: 0; }
   .vision__billboard { position: static; transform: none; z-index: auto; margin-top: auto; margin-inline: 0; text-align: center; pointer-events: none; }
   .vision__billboard-img { height: auto; width: min(300px, 72vw); margin-inline: auto; }
 }
-/* Arbeitsweise: vertikale Timeline auf schmalen Screens */
-@media (max-width: 760px) {
+/* Arbeitsweise: vertikale Timeline auf schmalen Screens (bis Tablet-Hochformat, vier Spalten sind darunter zu schmal) */
+@media (max-width: 900px) {
   .journey__track { left: 10px; right: auto; top: 6px; bottom: 6px; width: 3px; height: auto; }
   .journey__fill { inset: 0 0 auto 0; width: 100%; height: calc(var(--progress) * 100%); transition: height .35s var(--ease); background: linear-gradient(180deg, var(--yellow), var(--pink) 42%, var(--green) 72%, var(--violet)); }
   .journey__steps { grid-template-columns: 1fr; gap: 34px; }
@@ -573,6 +573,10 @@ p { margin: 0; }
 @media (max-width: 720px) {
   .js [data-reveal="left"], .js [data-reveal="right"] { transform: translateY(22px); }
   .journey-quote, .section--skyphoto .journey-quote { white-space: normal; overflow-wrap: anywhere; }
+  .hero__lamp--warm { opacity: .55; bottom: 0; height: clamp(380px, 62vh, 560px); }
+}
+/* Navigation: ab Tablet-Hochformat als Menü, sonst stößt die Linkreihe ans Logo (721 bis 900 px) */
+@media (max-width: 900px) {
   .nav-links, .nav-cta { display: none; }
   .nav-toggle { display: inline-flex; }
   .nav.is-open { position: fixed; inset: 0; background: var(--paper); flex-direction: column; justify-content: flex-start; gap: 0; padding: max(84px, calc(env(safe-area-inset-top) + 72px)) 32px max(32px, env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
@@ -581,8 +585,8 @@ p { margin: 0; }
   .nav.is-open .nav-cta { display: inline-flex; margin-top: 20px; font-size: 1rem; padding: 13px 28px; }
   .nav.is-open .nav-toggle { position: fixed; top: max(16px, env(safe-area-inset-top)); right: var(--gutter); }
   body.nav-open { overflow: hidden; touch-action: none; }
-  .hero__lamp--warm { opacity: .55; bottom: 0; height: clamp(380px, 62vh, 560px); }
 }
+
 @media (max-width: 430px) {
   .hero { padding-inline: max(16px, var(--gutter)); }
   .hero__sub { font-size: clamp(1rem, 4.6vw, 1.18rem); }
