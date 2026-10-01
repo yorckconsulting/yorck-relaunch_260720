@@ -12,7 +12,6 @@ const photos = {
   "board.jpg": [480, 800, 960, 975],
   "stage.jpg": [480, 800, 960, 1300],
   "whiteboard.jpg": [480, 800, 960, 1200],
-  "canvas.jpg": [480, 800, 960],
   "event.jpg": [480, 800, 960, 1500],
   "workshop.jpg": [480, 800, 960, 1500],
   "founder-1.jpg": [320, 600],
