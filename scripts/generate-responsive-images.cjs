@@ -19,7 +19,7 @@ const photos = {
   "founder-2.jpg": [320, 600],
   "team-beatrice.jpg": [320, 600],
   "team-stefano.jpg": [320, 600],
-  "team-niklas.jpg": [320, 600],
+  "team-placeholder.jpg": [320, 600],
   "insight-cover.jpg": [640, 960, 1300],
   "insight-staerken.jpg": [480, 800, 960, 1300],
   "insight-cake.jpg": [480, 800, 960, 1300],
