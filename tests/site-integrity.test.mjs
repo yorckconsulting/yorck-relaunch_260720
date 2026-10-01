@@ -242,10 +242,10 @@ test("runtime assets are referenced and local metadata files are absent", async 
   assert.deepEqual(metadata, [], "local .DS_Store files must not be part of the project");
 });
 
-test("Wrangler uses the pinned Pages compatibility configuration", async () => {
+test("Wrangler uses the pinned Workers assets configuration", async () => {
   const config = JSON.parse(await readFile(path.join(root, "wrangler.jsonc"), "utf8"));
   assert.equal(config.compatibility_date, "2026-07-15");
-  assert.equal(config.pages_build_output_dir, ".pages-dist");
+  assert.equal(config.assets?.directory, ".pages-dist");
 });
 
 async function filesRecursively(directory, include) {
