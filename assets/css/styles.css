@@ -229,14 +229,17 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 .about-deco--facade { left: 84vw; top: 64vh; width: 17vw; height: 46vh; object-fit: cover; object-position: center; z-index: 1; }
 .about-deco--espresso { left: 74vw; top: 77vh; width: 11vw; z-index: 2; }
 
-/* Unter 1121px: Collage am unteren Rand der Sektion. Der General (gerade) und das Haus stehen bündig auf der Unterkante und berühren sich nur leicht,
-   Champagner schneidet rechts am Rand an, die Kaffeetasse liegt oben auf dem Haus. Maße in --u (1 % der Breite, bis 560 px Breite, danach zentriert). */
+/* Unter 1121px: Collage am unteren Rand. Links bündig am Bildschirmrand: Kaffeetasse mit Hand (Hand kommt vom Rand) über dem General;
+   der General schließt links mit dem Rand ab, das Haus rechts mit dem Rand, dazwischen 2 Einheiten Abstand ohne Berührung.
+   Champagner schneidet rechts am Rand an. Maße in --u (1 % der Breite, bis 560 px Breite, danach zentriert). */
+.about-deco--hand { display: none; }
 @media (max-width: 1120px) {
-  .about-section { --u: min(1vw, 5.6px); --ax: max(0px, calc((100vw - 560px) / 2)); padding-bottom: calc(80 * var(--u)); }
-  .about-deco--portrait { left: calc(var(--ax) + 3 * var(--u)); top: auto; bottom: 0; width: calc(52 * var(--u)); height: auto; transform: none; z-index: 2; }
-  .about-deco--facade { left: calc(var(--ax) + 53 * var(--u)); top: auto; bottom: 0; width: calc(46 * var(--u)); height: auto; transform: none; z-index: 1; }
-  .about-deco--espresso { left: calc(var(--ax) + 52 * var(--u)); top: auto; bottom: calc(33 * var(--u)); width: calc(27 * var(--u)); transform: rotate(-8deg); z-index: 3; }
-  .about-deco--champagne { left: calc(var(--ax) + 79 * var(--u)); top: auto; bottom: calc(38 * var(--u)); width: calc(24 * var(--u)); transform: rotate(16deg); z-index: 3; }
+  .about-section { --u: min(1vw, 5.6px); --ax: max(0px, calc((100vw - 560px) / 2)); padding-bottom: calc(106 * var(--u)); }
+  .about-deco--portrait { left: var(--ax); top: auto; bottom: 0; width: calc(50 * var(--u)); height: auto; transform: none; z-index: 2; }
+  .about-deco--facade { left: calc(var(--ax) + 52 * var(--u)); top: auto; bottom: 0; width: calc(48 * var(--u)); height: auto; transform: none; z-index: 1; }
+  .about-deco--hand { display: block; left: var(--ax); top: auto; bottom: calc(58 * var(--u)); width: calc(28 * var(--u)); height: auto; transform: none; z-index: 3; }
+  .about-deco--champagne { left: calc(var(--ax) + 84 * var(--u)); top: auto; bottom: calc(37 * var(--u)); width: calc(22 * var(--u)); transform: rotate(16deg); z-index: 3; }
+  .about-deco--espresso { display: none; }
 }
 
 /* ---------- Arbeitsweise: Abstand Zitat -> Text darunter verkleinern ---------- */
@@ -347,7 +350,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 /* ---------- Team (Marquee-Kacheln, in Paaren gruppiert) ---------- */
 .team-pair { display: flex; gap: 14px; flex: 0 0 auto; }
 #team .marquee__track { gap: clamp(28px, 4vw, 52px); }
-.team-tile { width: clamp(320px, 82vw, 380px); height: clamp(480px, 66vh, 560px); flex: 0 0 auto; display: flex; flex-direction: column; }
+.team-tile { width: clamp(320px, 82vw, 380px); height: clamp(600px, 66vh, 640px); flex: 0 0 auto; display: flex; flex-direction: column; }
 .team-tile--photo { position: relative; display: block; overflow: hidden; }
 .team-tile--photo picture { display: block; width: 100%; height: 100%; }
 .team-tile--photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
@@ -451,7 +454,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 
 /* Bild-Parallax: Motiv bewegt sich langsamer als sein beschnittener Rahmen (--py via JS) */
 [data-parallax-img] { overflow: hidden; }
-.js [data-parallax-img] img, .js .article-hero__bg img, .js .article-figure__frame img { transform: translate3d(0, calc(var(--py, 0) * 1px), 0) scale(1.14); will-change: transform; }
+.js [data-parallax-img] img { transform: translate3d(0, calc(var(--py, 0) * 1px), 0) scale(1.14); will-change: transform; }
 
 /* Lesefortschritt auf Artikelseiten (Element wird per JS eingefügt) */
 .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 140; pointer-events: none; }
@@ -464,7 +467,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
   .js .wheel[data-reveal] .wheel__svg { opacity: 1; transform: none; transition: none; }
   .js .hero__logo, .js .hero .display, .js .hero__sub { animation: none; }
   .js .hero__inner, .js .hero__scroll { opacity: 1; transform: none; }
-  .js [data-parallax-img] img, .js .article-hero__bg img, .js .article-figure__frame img { transform: none; }
+  .js [data-parallax-img] img { transform: none; }
   .team-tile--photo img, .team-tile--card img { transition: none; transform: none; }
   .btn, .tile, .hero__scroll span { transition: none; animation: none; }
   /* Laufband einfrieren ist nicht genug: ohne Scroll-Mechanismus wären Inhalte jenseits der
@@ -530,7 +533,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 
 /* Bild-Break zwischen Textabschnitten (breiter als der Textsatz).
    overflow hidden beschneidet das Parallax-Motiv (Bild ist leicht skaliert). */
-.article-figure { margin: clamp(36px, 5vw, 64px) 0 0; max-width: 920px; }
+.article-figure { margin: clamp(36px, 5vw, 64px) 0 clamp(32px, 4.5vw, 52px); max-width: 920px; }
 .article-figure__frame, .article-figure__frame picture { display: block; border-radius: 0; overflow: hidden; }
 .article-figure img { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; border-radius: 0; }
 .article-figure figcaption { margin-top: 14px; font-size: .82rem; color: var(--muted); font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; }
@@ -640,13 +643,12 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
 .article-figure img[src*="case-personal-vibes"] { aspect-ratio: 4 / 3; object-position: 50% 38%; }
 .article-figure img[src*="/event."] { object-position: 50% 35%; }
 .article-figure img[src*="insight-balloon"] { object-position: 50% 5%; }
-.article-figure img[src*="insight-birthday-team"] { object-position: 50% 4%; }
+.article-figure img[src*="insight-birthday-team"] { aspect-ratio: 3 / 4; max-width: 520px; object-position: 50% 50%; }
 .article-figure img[src*="insight-vision-eagle"] { object-position: 50% 60%; }
 .article-figure img[src*="insight-hochschule-workshop"] { object-position: 50% 75%; }
 .article-figure img[src*="insight-govtech"] { object-position: 50% 70%; }
-/* Freisteller auf Weiß: ganzes Bild, ohne Parallaxe-Zoom, damit nichts angeschnitten wird */
+/* Freisteller auf Weiß: ganzes Bild, damit nichts angeschnitten wird */
 .article-figure img[src*="insight-staerken"], .article-figure img[src*="insight-cake"] { object-fit: contain; background: #fff; }
-.js .article-figure__frame img[src*="insight-staerken"], .js .article-figure__frame img[src*="insight-cake"] { transform: none; will-change: auto; }
 /* Kopfbild Tablet (721 bis 1023 px, Container fast quadratisch): Vollbild mit denselben Bildmitten wie am Desktop; ab 1024 px sind die Streifen *-hero-* vorgeschnitten */
 @media (min-width: 721px) and (max-width: 1023px) {
   .article-hero__bg img[src*="case-ki-magic"] { object-position: 50% 30%; }

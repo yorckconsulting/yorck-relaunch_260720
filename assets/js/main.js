@@ -174,7 +174,7 @@
   /* ---------- Scroll-FX: Parallax-Ebenen, Bild-Parallax, Hero-Ausblenden, Lesefortschritt ---------- */
   var fxParallax = [].slice.call(document.querySelectorAll("[data-parallax]"));
   var fxLamps = [].slice.call(document.querySelectorAll("[data-lamp]"));
-  var fxImgWraps = [].slice.call(document.querySelectorAll("[data-parallax-img], .article-hero__bg, .article-figure__frame"))
+  var fxImgWraps = [].slice.call(document.querySelectorAll("[data-parallax-img]"))
     .map(function (wrap) {
       var img = wrap.querySelector("img");
       return img ? { wrap: wrap, img: img, speed: parseFloat(wrap.getAttribute("data-parallax-img")) || 0.14 } : null;
