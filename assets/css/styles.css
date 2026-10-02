@@ -310,12 +310,6 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 .tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--tile-color, var(--yellow)); }
 .tile__media { display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: linear-gradient(150deg, color-mix(in srgb, var(--cyan) 12%, var(--paper)), color-mix(in srgb, var(--muted) 12%, var(--paper))); }
 .tile__media img { width: 100%; height: 100%; object-fit: cover; }
-/* Bewusst gewählte Bildausschnitte (16:10-Crop): Gesichter bleiben vollständig im Bild. Cover-Kachel bleibt unverändert. */
-.tile__media img[src*="insight-balloon"] { object-position: 50% 6%; }
-.tile__media img[src*="insight-birthday-team"] { object-position: 50% 9%; }
-.tile__media img[src*="insight-govtech"] { object-position: 50% 56%; }
-.tile__media img[src*="insight-hochschule-workshop"] { object-position: 50% 0%; }
-.tile__media img[src*="insight-empowered"] { object-position: 50% 45%; }
 .tile__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: var(--tile-color, var(--yellow)); }
 .tile h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: -.01em; overflow-wrap: anywhere; hyphens: auto; }
@@ -638,14 +632,35 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
   .contact__email { padding-block: 10px; }
 }
 
-/* Artikelbilder (16:8-Crop): Gesichter bleiben vollständig im Bild. */
+/* Bildausschnitte (Council-Entscheidung 02.10.2026): Gesichter und Schrift bleiben vollständig im Bild.
+   Kachelbilder (16:10) und die Kopfbild-Streifen der Cases sind vorgeschnitten (scripts/ nicht nötig, siehe assets/img/*-tile-* und *-hero-*). */
+.article-figure img[src*="case-kita-presentation"] { object-position: 50% 10%; }
+.article-figure img[src*="case-wissen-laptop"] { object-position: 50% 8%; }
+.article-figure img[src*="case-pm-workspace"] { object-position: 50% 25%; }
+.article-figure img[src*="case-personal-vibes"] { aspect-ratio: 4 / 3; object-position: 50% 38%; }
+.article-figure img[src*="/event."] { object-position: 50% 35%; }
 .article-figure img[src*="insight-balloon"] { object-position: 50% 5%; }
-.article-figure img[src*="insight-birthday-team"] { object-position: 50% 8%; }
-.article-figure img[src*="insight-staerken"] { object-position: 50% 0%; }
-.article-figure img[src*="insight-hochschule-workshop"] { object-position: 50% 25%; }
-.article-figure img[src*="insight-govtech"] { object-position: 50% 60%; }
-.article-figure img[src*="case-kita-presentation"] { object-position: 50% 2%; }
-.article-figure img[src*="case-wissen-laptop"] { object-position: 50% 10%; }
+.article-figure img[src*="insight-birthday-team"] { object-position: 50% 4%; }
+.article-figure img[src*="insight-vision-eagle"] { object-position: 50% 60%; }
+.article-figure img[src*="insight-hochschule-workshop"] { object-position: 50% 75%; }
+.article-figure img[src*="insight-govtech"] { object-position: 50% 70%; }
+/* Freisteller auf Weiß: ganzes Bild, ohne Parallaxe-Zoom, damit nichts angeschnitten wird */
+.article-figure img[src*="insight-staerken"], .article-figure img[src*="insight-cake"] { object-fit: contain; background: #fff; }
+.js .article-figure__frame img[src*="insight-staerken"], .js .article-figure__frame img[src*="insight-cake"] { transform: none; will-change: auto; }
+/* Kopfbild Tablet (721 bis 1023 px, Container fast quadratisch): Vollbild mit denselben Bildmitten wie am Desktop; ab 1024 px sind die Streifen *-hero-* vorgeschnitten */
+@media (min-width: 721px) and (max-width: 1023px) {
+  .article-hero__bg img[src*="case-ki-magic"] { object-position: 50% 30%; }
+  .article-hero__bg img[src*="case-wissen-collaborate"] { object-position: 8% 50%; }
+  .article-hero__bg img[src*="case-strategic-calm"] { object-position: 50% 20%; }
+  .article-hero__bg img[src*="case-personal-presentation"] { object-position: 50% 9%; }
+  .article-hero__bg img[src*="case-pm-training"] { object-position: 50% 25%; }
+}
+/* Kopfbild mobil (hochkant): Wortanfang beziehungsweise Schild im Ausschnitt */
+@media (max-width: 720px) {
+  .article-hero__bg img[src*="case-kita-workshop"] { object-position: 0% 50%; }
+  .article-hero__bg img[src*="case-wissen-collaborate"] { object-position: 10% 50%; }
+  .article-hero__bg img[src*="case-strategic-calm"] { object-position: 82% 50%; }
+}
 
 /* Schmale Textblöcke im Blocksatz bilden große Wortlücken: linksbündig (lange Fließtexte bleiben im Blocksatz). */
 .lead, .tile__excerpt, .team-tile--info p, .journey__step p { text-align: left; }
