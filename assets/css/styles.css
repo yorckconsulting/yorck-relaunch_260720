@@ -600,7 +600,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 
 @media (max-width: 430px) {
   .hero { padding-inline: max(16px, var(--gutter)); }
-  .hero__sub { font-size: clamp(1rem, 4.6vw, 1.18rem); }
+  .hero__sub { font-size: min(1.18rem, calc((100vw - 2 * max(16px, var(--gutter))) / 20.5)); white-space: nowrap; }
 }
 @media (max-height: 520px) and (max-width: 920px) and (orientation: landscape) {
   .nav.is-open { padding-top: max(70px, calc(env(safe-area-inset-top) + 64px)); }
