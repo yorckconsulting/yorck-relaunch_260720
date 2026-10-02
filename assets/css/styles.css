@@ -311,7 +311,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 /* Cases / Insights tiles in marquee */
 .tile { width: clamp(280px, 32vw, 380px); flex: 0 0 auto; display: flex; flex-direction: column; border-radius: 0; overflow: hidden; background: var(--paper); border: 2px solid var(--line); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
 .tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--tile-color, var(--yellow)); }
-.tile__media { display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: linear-gradient(150deg, color-mix(in srgb, var(--cyan) 12%, var(--paper)), color-mix(in srgb, var(--muted) 12%, var(--paper))); }
+.tile__media { display: block; width: 100%; aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(150deg, color-mix(in srgb, var(--cyan) 12%, var(--paper)), color-mix(in srgb, var(--muted) 12%, var(--paper))); }
 .tile__media img { width: 100%; height: 100%; object-fit: cover; }
 .tile__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: var(--tile-color, var(--yellow)); }
@@ -484,7 +484,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 .page-hero h1 { font-size: clamp(2.2rem, 6vw, 4.2rem); }
 .page-hero:has(+ .section--tight .prose) { padding-bottom: clamp(16px, 2vw, 24px); }
 .page-hero + .section--tight:has(.prose) { padding-top: clamp(24px, 4vw, 48px); }
-.prose { max-width: 720px; }
+.prose { max-width: 800px; }
 .prose > * + * { margin-top: 20px; }
 .prose h2 { margin-top: 14px; font-size: clamp(1.4rem, 3vw, 2rem); }
 .prose h2 + p { margin-top: 8px; }
@@ -533,7 +533,7 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 
 /* Bild-Break zwischen Textabschnitten (breiter als der Textsatz).
    overflow hidden beschneidet das Parallax-Motiv (Bild ist leicht skaliert). */
-.article-figure { margin: clamp(36px, 5vw, 64px) 0 clamp(32px, 4.5vw, 52px); max-width: 920px; }
+.article-figure { margin: clamp(36px, 5vw, 64px) 0 clamp(32px, 4.5vw, 52px); max-width: 1040px; }
 .article-figure__frame, .article-figure__frame picture { display: block; border-radius: 0; overflow: hidden; }
 .article-figure img { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; border-radius: 0; }
 .article-figure figcaption { margin-top: 14px; font-size: .82rem; color: var(--muted); font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; }
