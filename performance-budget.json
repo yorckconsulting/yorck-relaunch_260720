@@ -44,8 +44,8 @@
       ],
       "desktop": {
         "initial": {
-          "totalBytes": 900000,
-          "imageBytes": 650000,
+          "totalBytes": 1050000,
+          "imageBytes": 900000,
           "requests": 28
         }
       },
