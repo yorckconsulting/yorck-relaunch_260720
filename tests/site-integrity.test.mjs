@@ -272,3 +272,14 @@ function getMeta(html, attribute, name, file) {
   assert.equal(matches.length, 1, `${file} must contain exactly one ${name}`);
   return matches[0][1];
 }
+
+test("navigation and footer links follow the order of the homepage sections", async () => {
+  const html = await readFile(path.join(root, "index.html"), "utf8");
+  const sectionIds = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]);
+  const navBlock = html.match(/<ul class="nav-links">([\s\S]*?)<\/ul>/)?.[1] || "";
+  const navIds = [...navBlock.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(navIds, sectionIds.filter((id) => navIds.includes(id)), "navigation order must match the section order on the page");
+  const footerBlock = html.match(/<h4>Navigation<\/h4><ul>([\s\S]*?)<\/ul>/)?.[1] || "";
+  const footerIds = [...footerBlock.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(footerIds, navIds, "footer navigation must match the main navigation");
+});
