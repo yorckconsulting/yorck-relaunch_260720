@@ -484,6 +484,8 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 .page-hero h1 { font-size: clamp(2.2rem, 6vw, 4.2rem); }
 .page-hero:has(+ .section--tight .prose) { padding-bottom: clamp(16px, 2vw, 24px); }
 .page-hero + .section--tight:has(.prose) { padding-top: clamp(24px, 4vw, 48px); }
+.page-hero:has(+ .section--tight .cards-row) { padding-bottom: clamp(8px, 1vw, 16px); }
+.page-hero + .section--tight:has(.cards-row) { padding-top: clamp(20px, 3vw, 40px); }
 .prose { max-width: 800px; }
 .prose > * + * { margin-top: 20px; }
 .prose h2 { margin-top: 14px; font-size: clamp(1.4rem, 3vw, 2rem); }
