@@ -361,6 +361,8 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 .team-tile--info p { color: var(--muted); font-size: .92rem; text-align: justify; hyphens: auto; }
 .team-hashtags { color: var(--cyan); font-family: var(--font-display); font-weight: 700; display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: .78rem; margin-top: auto; }
 .team-hashtags span, .team-tile__role { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
+/* Rollen nicht automatisch trennen: "Produktmanagement" bleibt ein Wort in einer Zeile. */
+.team-tile--info .team-tile__role { hyphens: manual; }
 .linkedin-link { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; background: var(--ink); color: #fff; flex-shrink: 0; }
 .linkedin-link svg { width: 18px; height: 18px; fill: currentColor; display: block; }
 .linkedin-link:hover { background: var(--cyan); }
