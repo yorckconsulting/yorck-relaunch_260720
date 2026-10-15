@@ -569,6 +569,8 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 .article-masthead-meta + .article-body { padding-top: clamp(16px, 2.2vw, 28px); }
 .article-masthead-meta + .article-body .container > :first-child,
 .article-masthead-meta + .article-body .prose:first-child > :first-child { margin-top: 0; }
+/* Cases: Text beginnt nah unter dem Kopfbild statt nach fast 120 px Leerraum. */
+.article-hero:not(.article-hero--masthead) + .article-body { padding-top: clamp(32px, 4.4vw, 64px); }
 .article-masthead-meta .breadcrumb, .article-masthead-meta .breadcrumb a { color: var(--muted); }
 .article-masthead-meta .breadcrumb a:hover { color: var(--cyan-ink); }
 .article-masthead-meta h1 { color: var(--ink); max-width: 22em; font-size: clamp(1.8rem, 3.4vw, 2.6rem); overflow-wrap: break-word; hyphens: auto; }
@@ -647,8 +649,9 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
 
 /* Bildausschnitte (Council-Entscheidung 02.10.2026): Gesichter und Schrift bleiben vollständig im Bild.
    Kachelbilder (16:10) und die Kopfbild-Streifen der Cases sind vorgeschnitten (scripts/ nicht nötig, siehe assets/img/*-tile-* und *-hero-*). */
-.article-figure img[src*="case-kita-presentation"] { object-position: 50% 10%; }
-.article-figure img[src*="case-wissen-laptop"] { object-position: 50% 8%; }
+/* Hochformat-Fotos mit Person oder Motiv ganz zeigen statt als breiten Streifen anzuschneiden */
+.article-figure img[src*="case-kita-presentation"], .article-figure img[src*="case-wissen-laptop"], .article-figure img[src*="case-personal-presentation"] { aspect-ratio: 3 / 4; max-width: 520px; object-position: 50% 50%; }
+.article-figure img[src*="case-strategic-skyline"] { aspect-ratio: 1300 / 1234; max-width: 620px; object-position: 50% 50%; }
 .article-figure img[src*="case-pm-workspace"] { object-position: 50% 25%; }
 .article-figure img[src*="case-personal-vibes"] { aspect-ratio: 4 / 3; object-position: 50% 38%; }
 .article-figure img[src*="/event."] { object-position: 50% 35%; }
@@ -664,7 +667,7 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
   .article-hero__bg img[src*="case-ki-magic"] { object-position: 50% 30%; }
   .article-hero__bg img[src*="case-wissen-collaborate"] { object-position: 8% 50%; }
   .article-hero__bg img[src*="case-strategic-calm"] { object-position: 50% 20%; }
-  .article-hero__bg img[src*="case-personal-presentation"] { object-position: 50% 9%; }
+  .article-hero__bg img[src*="case-personal-notes"] { object-position: 50% 30%; }
   .article-hero__bg img[src*="case-pm-training"] { object-position: 50% 25%; }
 }
 /* Kopfbild mobil (hochkant): Wortanfang beziehungsweise Schild im Ausschnitt */
