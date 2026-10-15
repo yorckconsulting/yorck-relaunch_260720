@@ -10,8 +10,15 @@ DIRECTORY = sys.argv[2] if len(sys.argv) > 2 else os.path.dirname(os.path.abspat
 
 
 class NoCacheHTMLHandler(http.server.SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        # Wie Cloudflare Workers Assets: /cases/kita liefert cases/kita.html.
+        local = super().translate_path(path)
+        if not os.path.exists(local) and os.path.isfile(local + ".html"):
+            return local + ".html"
+        return local
+
     def end_headers(self):
-        if self.path == "/" or self.path.endswith(".html"):
+        if self.path == "/" or self.path.endswith(".html") or not os.path.splitext(self.path)[1]:
             self.send_header("Cache-Control", "no-cache, must-revalidate")
         super().end_headers()
 

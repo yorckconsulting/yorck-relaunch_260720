@@ -39,8 +39,8 @@
       "paths": [
         "/cases/",
         "/insights/",
-        "/cases/kita.html",
-        "/insights/angstfreie-organisationen.html"
+        "/cases/kita",
+        "/insights/angstfreie-organisationen"
       ],
       "desktop": {
         "initial": {

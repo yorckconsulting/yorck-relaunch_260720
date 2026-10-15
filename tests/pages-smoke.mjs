@@ -21,6 +21,23 @@ for (const path of ["/home", "/home/"]) {
   assert.equal(new URL(response.headers.get("location"), base).pathname, "/");
 }
 
+for (const [from, to] of [
+  ["/cases/kita.html", "/cases/kita"],
+  ["/insights/angstfreie-organisationen.html", "/insights/angstfreie-organisationen"],
+  ["/impressum.html", "/impressum"],
+  ["/index.html", "/"],
+  ["/cases/index.html", "/cases/"],
+  ["/insights/index.html", "/insights/"]
+]) {
+  const response = await load(from);
+  assert.equal(response.status, 301, `${from} must redirect permanently`);
+  assert.equal(new URL(response.headers.get("location"), base).pathname, to);
+}
+
+for (const path of ["/cases/", "/cases/kita", "/insights/angstfreie-organisationen", "/impressum", "/datenschutz"]) {
+  assert.equal((await load(path)).status, 200, `${path} must be served without redirect`);
+}
+
 const missing = await load("/__pages-smoke-missing__");
 assert.equal(missing.status, 404);
 assert.equal(missing.headers.get("x-content-type-options"), "nosniff");
