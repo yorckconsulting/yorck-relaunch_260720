@@ -1,3 +1,9 @@
 # Bestands-URL der bisherigen Canva-Website
 /home / 301
 /home/ / 301
+
+# .html-Adressen dauerhaft auf die saubere Adresse (Workers Assets leitet sonst nur temporär, 307)
+/index.html / 301
+/cases/index.html /cases/ 301
+/insights/index.html /insights/ 301
+/*.html /:splat 301

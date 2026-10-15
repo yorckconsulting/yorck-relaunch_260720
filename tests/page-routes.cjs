@@ -17,7 +17,7 @@ function publicPath(file) {
   const relative = path.relative(root, file).split(path.sep).join("/");
   if (relative === "index.html") return "/";
   if (relative.endsWith("/index.html")) return "/" + relative.slice(0, -"index.html".length);
-  return "/" + relative;
+  return "/" + relative.replace(/\.html$/, "");
 }
 
 module.exports = htmlFiles(root).map(publicPath).sort();

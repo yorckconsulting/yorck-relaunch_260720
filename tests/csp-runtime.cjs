@@ -8,7 +8,7 @@ if (!base) throw new Error("Usage: node tests/csp-runtime.cjs http://127.0.0.1:8
   const browser = await launchBrowser();
   try {
     const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
-    for (const path of ["/", "/cases/", "/insights/", "/cases/kita.html", "/insights/angstfreie-organisationen.html"]) {
+    for (const path of ["/", "/cases/", "/insights/", "/cases/kita", "/insights/angstfreie-organisationen"]) {
       const page = await context.newPage();
       const consoleViolations = [];
       page.on("console", (message) => {

@@ -13,8 +13,8 @@ const checks = [
   { path: "/home/", status: 301, location: "/" },
   { path: "/sitemap.xml", status: 200 },
   { path: "/robots.txt", status: 200 },
-  { path: "/cases/kita.html", status: 200 },
-  { path: "/insights/angstfreie-organisationen.html", status: 200 },
+  { path: "/cases/kita", status: 200 },
+  { path: "/insights/angstfreie-organisationen", status: 200 },
   { path: "/__monitoring-404-check__", status: 404, headers: securityHeaders },
   { path: "/_assets/__monitoring-retired-asset__.js", status: 410, headers: securityHeaders }
 ];

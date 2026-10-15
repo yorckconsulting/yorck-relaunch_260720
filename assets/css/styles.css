@@ -98,13 +98,13 @@ button { font: inherit; cursor: pointer; }
 .section--skyphoto #ueber-uns p, .section--skyphoto .statement {
   color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
 }
-.section--skyphoto .wheel-claim { color: var(--cyan); }
+.section--skyphoto .wheel-claim { color: #fff; }
 .section--skyphoto .tile { background: transparent; border: 0; }
 .section--skyphoto .tile h3, .section--skyphoto .tile__excerpt, .section--skyphoto .tile__link {
   color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
 }
 /* Case-/Insight-Kicker behält seine Tile-Farbe; der Schatten verbessert die Lesbarkeit. */
-.section--skyphoto .tile__kicker { text-shadow: 0 1px 8px rgba(0, 0, 0, .6); }
+.section--skyphoto .tile__kicker { align-self: flex-start; padding: 3px 8px; border-radius: 4px; background: rgba(12, 26, 34, .55); text-shadow: none; }
 /* Weiße Team-Karten innerhalb eines Himmel-Fotos behalten dunklen Text. */
 .section--skyphoto .team-tile--info,
 .section--skyphoto .team-tile--info p,
@@ -155,6 +155,8 @@ p { margin: 0; }
 /* ---------- Header ---------- */
 .site-header { position: fixed; inset: 0 0 auto 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px var(--gutter); transition: background .3s var(--ease), padding .3s var(--ease), box-shadow .3s var(--ease); }
 .site-header.is-scrolled { background: rgba(255, 255, 255, .98); backdrop-filter: saturate(150%) blur(12px); padding-block: 10px; box-shadow: 0 1px 0 var(--line); }
+/* backdrop-filter macht die Kopfzeile zum Bezugsrahmen für position: fixed: das geöffnete Menü wäre nur so hoch wie die Kopfzeile. */
+body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: none; }
 .brand { display: flex; flex-direction: column; }
 .nav { display: flex; align-items: center; gap: 28px; }
 .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; margin: 0; padding: 0; }
@@ -177,8 +179,11 @@ p { margin: 0; }
 .hero__lamp { position: absolute; z-index: -1; width: auto; max-width: none; pointer-events: none; filter: drop-shadow(0 20px 30px rgba(20,30,50,.18)); transform-origin: bottom center; }
 .hero__lamp--warm { right: -7%; bottom: 0; height: clamp(440px, 84vh, 980px); }
 .hero__inner { position: relative; width: 100%; max-width: 1100px; min-width: 0; }
-.hero .display { max-width: 100%; min-width: 0; font-size: clamp(2.7rem, 9vw, 6.8rem); line-height: .94; overflow-wrap: anywhere; word-break: normal; hyphens: auto; }
-.hero__sub { max-width: 620px; min-width: 0; margin: 26px auto 0; overflow-wrap: anywhere; word-break: normal; }
+.hero .display { max-width: 100%; min-width: 0; font-size: clamp(2.7rem, 9vw, 6.8rem); line-height: .94; overflow-wrap: normal; word-break: normal; hyphens: manual; text-wrap: balance; }
+.hero__sub { max-width: 620px; min-width: 0; margin: 26px auto 0; overflow-wrap: normal; word-break: normal; text-wrap: balance; }
+.hero__sub span { white-space: nowrap; }
+/* Mobil: Schrift so, dass "ORGANISATION." (ca. 7,3 em) die Breite füllt, nie getrennt wird und die Größe stufenlos in die Desktop-Regel übergeht (ab 604 px = 9vw). */
+@media (max-width: 603px) { .hero .display { font-size: clamp(1.9rem, calc((100vw - 2 * max(16px, var(--gutter))) / 7.8), 3.4rem); } }
 .hero__logo { height: clamp(56px, 8vw, 90px); aspect-ratio: 1154 / 453; width: auto; margin: 0 auto 26px; background: var(--ink); -webkit-mask: url("../img/logo.svg") center / contain no-repeat; mask: url("../img/logo.svg") center / contain no-repeat; }
 .hero__scroll { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-family: var(--font-display); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 .hero__scroll span { width: 1px; height: 34px; background: var(--ink); animation: scrollcue 1.8s var(--ease) infinite; transform-origin: top; }
@@ -218,13 +223,24 @@ p { margin: 0; }
 
 /* Rechte Seite: horizontal gestaffelt statt Spalte — Champagner weit rechts (oben angeschnitten),
    General bis über den rechten Rand (kopfüber gedreht), Gebäude am rechten/unteren Rand,
-   Espresso davor weiter links */
+   Espresso davor weiter links (ursprüngliche Desktop-Anordnung) */
 .about-deco--champagne { left: 83vw; top: -2vh; width: 14vw; transform: rotate(18deg); z-index: 1; }
 .about-deco--portrait { left: 80vw; top: 25vh; width: 22vw; transform: rotate(270deg); z-index: 1; }
 .about-deco--facade { left: 84vw; top: 64vh; width: 17vw; height: 46vh; object-fit: cover; object-position: center; z-index: 1; }
 .about-deco--espresso { left: 74vw; top: 77vh; width: 11vw; z-index: 2; }
 
-@media (max-width: 1120px) { .about-deco { display: none; } }
+/* Unter 1121px: Collage am unteren Rand. Links bündig am Bildschirmrand: Kaffeetasse mit Hand (Hand kommt vom Rand) über dem General;
+   der General schließt links mit dem Rand ab, das Haus rechts mit dem Rand, dazwischen 2 Einheiten Abstand ohne Berührung.
+   Champagner schneidet rechts am Rand an. Maße in --u (1 % der Breite, bis 560 px Breite, danach zentriert). */
+.about-deco--hand { display: none; }
+@media (max-width: 1120px) {
+  .about-section { --u: min(1vw, 5.6px); --ax: max(0px, calc((100vw - 560px) / 2)); padding-bottom: calc(106 * var(--u)); }
+  .about-deco--portrait { left: var(--ax); top: auto; bottom: 0; width: calc(50 * var(--u)); height: auto; transform: none; z-index: 2; }
+  .about-deco--facade { left: calc(var(--ax) + 52 * var(--u)); top: auto; bottom: 0; width: calc(48 * var(--u)); height: auto; transform: none; z-index: 1; }
+  .about-deco--hand { display: block; left: var(--ax); top: auto; bottom: calc(58 * var(--u)); width: calc(28 * var(--u)); height: auto; transform: none; z-index: 3; }
+  .about-deco--champagne { left: calc(var(--ax) + 84 * var(--u)); top: auto; bottom: calc(37 * var(--u)); width: calc(22 * var(--u)); transform: rotate(16deg); z-index: 3; }
+  .about-deco--espresso { display: none; }
+}
 
 /* ---------- Arbeitsweise: Abstand Zitat -> Text darunter verkleinern ---------- */
 #arbeitsweise .section-head { margin-bottom: 10px; }
@@ -269,13 +285,36 @@ p { margin: 0; }
 .js .marquee--draggable.is-dragging, .js .marquee--draggable.is-dragging * { user-select: none; -webkit-user-select: none; }
 .js .marquee--draggable img, .js .marquee--draggable a { -webkit-user-drag: none; }
 
+/* ---------- Scroll-Snap-Streifen (Cases, Insights, Team): nativer Scroll, kein Auto-Lauf ----------
+   Trackpad, Shift+Rad, Pfeiltasten und Touch-Momentum liefert der Browser; Pfeile und Zähler ergänzt main.js.
+   Die nächste Kachel ragt angeschnitten ins Bild und zeigt, dass der Streifen bewegt werden kann. */
+.strip { position: relative; }
+.strip__track { position: relative; display: flex; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  --strip-pad: var(--gutter); scroll-padding-inline: var(--strip-pad); padding: 14px var(--strip-pad) 26px; }
+.strip__track::-webkit-scrollbar { display: none; }
+@media (hover: hover) and (pointer: fine) { .strip__track { cursor: grab; } }
+.strip__track.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; -webkit-user-select: none; }
+.strip__track a, .strip__track img { -webkit-user-drag: none; }
+.strip__track > * { flex: 0 0 auto; scroll-snap-align: start; }
+.strip__track:focus-visible { outline: 3px solid var(--cyan); outline-offset: -3px; }
+#team .strip__track { gap: clamp(28px, 4vw, 52px); }
+.strip__nav { display: flex; align-items: center; gap: 14px; padding-inline: var(--gutter); margin: 6px 0 0; }
+.strip + .container { width: auto; margin-inline: var(--gutter); }
+.strip__btn { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #fff; border-radius: 12px; background: rgba(255,255,255,.14); color: #fff; cursor: pointer; transition: background .2s, border-color .2s, color .2s, opacity .2s; }
+.strip__btn svg { width: 22px; height: 22px; display: block; }
+.strip__btn:first-child svg { transform: scaleX(-1); }
+.strip__btn:hover:not(:disabled) { background: var(--cyan); border-color: var(--cyan); color: var(--ink); }
+.strip__btn:disabled { opacity: .4; cursor: default; }
+.strip__btn:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+.strip__count { min-width: 4.6ch; text-align: center; font-family: var(--font-display); font-weight: 700; letter-spacing: .08em; font-size: .85rem; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+
 /* Cases / Insights tiles in marquee */
 .tile { width: clamp(280px, 32vw, 380px); flex: 0 0 auto; display: flex; flex-direction: column; border-radius: 0; overflow: hidden; background: var(--paper); border: 2px solid var(--line); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
 .tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--tile-color, var(--yellow)); }
-.tile__media { display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: linear-gradient(150deg, color-mix(in srgb, var(--cyan) 12%, var(--paper)), color-mix(in srgb, var(--muted) 12%, var(--paper))); }
+.tile__media { display: block; width: 100%; aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(150deg, color-mix(in srgb, var(--cyan) 12%, var(--paper)), color-mix(in srgb, var(--muted) 12%, var(--paper))); }
 .tile__media img { width: 100%; height: 100%; object-fit: cover; }
 .tile__body { padding: 22px 24px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; color: var(--tile-color, var(--yellow)); }
+.tile__kicker { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: var(--tile-color, var(--yellow)); }
 .tile h3 { font-size: 1.2rem; text-transform: uppercase; letter-spacing: -.01em; overflow-wrap: anywhere; hyphens: auto; }
 .tile__excerpt { color: var(--muted); font-size: .95rem; flex: 1; text-align: justify; hyphens: auto; }
 .tile__link { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .04em; font-weight: 700; font-size: .78rem; color: var(--ink); display: inline-flex; gap: 7px; align-items: center; }
@@ -284,6 +323,10 @@ p { margin: 0; }
 /* ---------- Komplizen (Logos) ---------- */
 .komplizen .marquee__track { gap: clamp(40px, 6vw, 80px); align-items: center; }
 .komplizen img { height: 62px; width: auto; max-width: 300px; object-fit: contain; }
+@media (max-width: 720px) {
+  .komplizen .marquee__track { gap: 32px; }
+  .komplizen img { height: 38px; max-width: 190px; }
+}
 /* Reine Logos ohne verlinkte Detailseite: kein Hover-Feedback (keine Klick-Suggestion). */
 /* Hover lässt die Logos bewusst weiterlaufen; Fokus und Gedrückthalten pausieren. */
 
@@ -307,7 +350,7 @@ p { margin: 0; }
 /* ---------- Team (Marquee-Kacheln, in Paaren gruppiert) ---------- */
 .team-pair { display: flex; gap: 14px; flex: 0 0 auto; }
 #team .marquee__track { gap: clamp(28px, 4vw, 52px); }
-.team-tile { width: clamp(320px, 82vw, 380px); height: clamp(480px, 66vh, 560px); flex: 0 0 auto; display: flex; flex-direction: column; }
+.team-tile { width: clamp(320px, 82vw, 380px); height: clamp(600px, 66vh, 640px); flex: 0 0 auto; display: flex; flex-direction: column; }
 .team-tile--photo { position: relative; display: block; overflow: hidden; }
 .team-tile--photo picture { display: block; width: 100%; height: 100%; }
 .team-tile--photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
@@ -318,27 +361,35 @@ p { margin: 0; }
 .team-tile--info p { color: var(--muted); font-size: .92rem; text-align: justify; hyphens: auto; }
 .team-hashtags { color: var(--cyan); font-family: var(--font-display); font-weight: 700; display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: .78rem; margin-top: auto; }
 .team-hashtags span, .team-tile__role { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
+/* Rollen nicht automatisch trennen: "Produktmanagement" bleibt ein Wort in einer Zeile. */
+.team-tile--info .team-tile__role { hyphens: manual; }
 .linkedin-link { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; background: var(--ink); color: #fff; flex-shrink: 0; }
 .linkedin-link svg { width: 18px; height: 18px; fill: currentColor; display: block; }
 .linkedin-link:hover { background: var(--cyan); }
 .team-tile--photo .linkedin-link { position: absolute; right: 14px; bottom: 14px; background: var(--cyan); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
-.team-tile--card .linkedin-link { position: absolute; right: 14px; bottom: 14px; background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
-.team-tile--card .linkedin-link:hover { background: var(--cyan); }
-.team-tile--card { position: relative; display: block; overflow: hidden; }
-.team-tile--card picture { display: block; width: 100%; height: 100%; }
-.team-tile--card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
-.team-tile--card:hover img { transform: scale(1.045); }
-.team-tile__overlay { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(20px, 3vw, 28px); background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.78) 78%); }
-.team-tile__name { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 1.15rem; color: var(--cyan); margin: 0; overflow-wrap: anywhere; hyphens: auto; }
-.team-tile__overlay .team-tile__role { margin-top: 4px; }
-.section--skyphoto .team-tile__overlay .team-tile__name, .section--skyphoto .team-tile__overlay .team-tile__role { color: var(--cyan); text-shadow: 0 1px 6px rgba(0,0,0,.55); }
+/* Mobil: Profile mit Text gleich aufgebaut und gleich groß. Foto im ungeschnittenen 2:3-Format links,
+   rechts Name oben, Rolle darunter, LinkedIn-Icon bündig mit der Unterkante des Fotos, darunter Text und Hashtags.
+   Stefano bleibt wie am Desktop: Foto mit Name, Titel und Icon, gleich hoch wie die anderen. Karten 80vw breit (nächste schaut heraus). */
+@media (max-width: 720px) {
+  #team .strip__track { gap: 16px; }
+  .team-pair { display: grid; grid-template-columns: 96px minmax(0, 1fr); grid-template-rows: auto auto auto auto auto; align-content: start; column-gap: 14px; width: min(80vw, 330px); height: auto; padding: 14px; background: var(--paper); overflow: visible; }
+  .team-tile--info { display: contents; }
+  .team-pair > .team-tile--photo { grid-column: 1; grid-row: 1 / 4; position: static; display: block; width: 96px; height: 152px; overflow: hidden; }
+  .team-tile--photo picture { display: block; width: 100%; height: 100%; }
+  .team-tile--photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+  .team-pair h3 { grid-column: 2; grid-row: 1; align-self: start; font-size: .95rem; color: var(--ink); text-shadow: none; }
+  .team-pair .team-tile__role { grid-column: 2; grid-row: 2; align-self: start; margin-top: 4px; font-size: .7rem; hyphens: manual; overflow-wrap: normal; color: var(--cyan); text-shadow: none; }
+  .team-pair .linkedin-link { grid-column: 2; grid-row: 3; position: static; align-self: end; justify-self: start; margin: 0 !important; background: var(--ink); color: #fff; box-shadow: none; }
+  .team-pair .team-tile--info p:not(.team-tile__role) { grid-column: 1 / -1; grid-row: 4; margin-top: 10px; font-size: .8rem; line-height: 1.4; }
+  .team-pair .team-hashtags { grid-column: 1 / -1; grid-row: 5; margin-top: 8px; font-size: .68rem; gap: 4px 10px; }
+}
 /* ---------- Contact ---------- */
 .contact { position: relative; background: #18242d; color: #fff; isolation: isolate; overflow: hidden; }
 .contact__bg { position: absolute; inset: 0; z-index: -1; display: block; }
 .contact__bg img { width: 100%; height: 100%; object-fit: cover; }
 .contact::before { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(0, 0, 0, .45); pointer-events: none; }
 .contact .eyebrow, .contact h2, .contact .display { color: #fff; }
-.contact__grid { position: relative; z-index: 1; max-width: 640px; }
+.contact__grid { position: relative; z-index: 1; max-width: 920px; }
 .contact__headline { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: 1.14; color: #fff; overflow-wrap: anywhere; }
 .contact__email { display: inline-block; max-width: 100%; margin-top: 26px; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--cyan); overflow-wrap: anywhere; }
 .contact__email:hover { color: #fff; }
@@ -351,7 +402,7 @@ p { margin: 0; }
 .site-footer a:hover { color: #fff; }
 .footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.12); }
 .footer__cols { display: flex; gap: clamp(28px, 6vw, 72px); flex-wrap: wrap; }
-.footer__col h4 { font-family: var(--font-display); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 0 0 14px; font-weight: 700; }
+.footer__col h4 { font-family: var(--font-display); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); margin: 0 0 14px; font-weight: 700; }
 .footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; font-size: .94rem; }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; font-size: .84rem; color: rgba(255,255,255,.5); }
 
@@ -389,7 +440,7 @@ p { margin: 0; }
 
 /* Bild-Parallax: Motiv bewegt sich langsamer als sein beschnittener Rahmen (--py via JS) */
 [data-parallax-img] { overflow: hidden; }
-.js [data-parallax-img] img, .js .article-hero__bg img, .js .article-figure__frame img { transform: translate3d(0, calc(var(--py, 0) * 1px), 0) scale(1.14); will-change: transform; }
+.js [data-parallax-img] img { transform: translate3d(0, calc(var(--py, 0) * 1px), 0) scale(1.14); will-change: transform; }
 
 /* Lesefortschritt auf Artikelseiten (Element wird per JS eingefügt) */
 .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 140; pointer-events: none; }
@@ -402,8 +453,8 @@ p { margin: 0; }
   .js .wheel[data-reveal] .wheel__svg { opacity: 1; transform: none; transition: none; }
   .js .hero__logo, .js .hero .display, .js .hero__sub { animation: none; }
   .js .hero__inner, .js .hero__scroll { opacity: 1; transform: none; }
-  .js [data-parallax-img] img, .js .article-hero__bg img, .js .article-figure__frame img { transform: none; }
-  .team-tile--photo img, .team-tile--card img { transition: none; transform: none; }
+  .js [data-parallax-img] img { transform: none; }
+  .team-tile--photo img { transition: none; transform: none; }
   .btn, .tile, .hero__scroll span { transition: none; animation: none; }
   /* Laufband einfrieren ist nicht genug: ohne Scroll-Mechanismus wären Inhalte jenseits der
      ersten Viewport-Breite für Reduced-Motion-Nutzer:innen unerreichbar (z. B. Komplizen-Logos). */
@@ -419,7 +470,9 @@ p { margin: 0; }
 .page-hero h1 { font-size: clamp(2.2rem, 6vw, 4.2rem); }
 .page-hero:has(+ .section--tight .prose) { padding-bottom: clamp(16px, 2vw, 24px); }
 .page-hero + .section--tight:has(.prose) { padding-top: clamp(24px, 4vw, 48px); }
-.prose { max-width: 720px; }
+.page-hero:has(+ .section--tight .cards-row) { padding-bottom: clamp(8px, 1vw, 16px); }
+.page-hero + .section--tight:has(.cards-row) { padding-top: clamp(20px, 3vw, 40px); }
+.prose { max-width: 800px; }
 .prose > * + * { margin-top: 20px; }
 .prose h2 { margin-top: 14px; font-size: clamp(1.4rem, 3vw, 2rem); }
 .prose h2 + p { margin-top: 8px; }
@@ -444,7 +497,7 @@ p { margin: 0; }
 .article-hero .breadcrumb, .article-hero .breadcrumb a { color: rgba(255,255,255,.78); }
 .article-hero .breadcrumb a:hover { color: #fff; }
 .article-hero h1 { color: #fff; max-width: 20ch; font-size: clamp(2.1rem, 5.4vw, 4rem); overflow-wrap: break-word; hyphens: auto; }
-.article-cat { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .76rem; color: #fff; padding: 8px 16px; border-radius: 999px; background: var(--accent, var(--yellow)); margin-bottom: 20px; }
+.article-cat { display: inline-flex; align-items: center; gap: 9px; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: .76rem; color: var(--accent-text, #fff); padding: 8px 16px; border-radius: 999px; background: var(--accent, var(--yellow)); margin-bottom: 20px; }
 .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 24px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: .06em; font-size: .76rem; color: rgba(255,255,255,.82); }
 .article-meta > span + span::before { content: "·"; margin-right: 16px; color: rgba(255,255,255,.5); }
 
@@ -468,7 +521,11 @@ p { margin: 0; }
 
 /* Bild-Break zwischen Textabschnitten (breiter als der Textsatz).
    overflow hidden beschneidet das Parallax-Motiv (Bild ist leicht skaliert). */
-.article-figure { margin: clamp(36px, 5vw, 64px) 0 0; max-width: 920px; }
+.article-figure { margin: clamp(32px, 4vw, 48px) 0; max-width: 1040px; }
+/* Textrhythmus im Artikel: Zwischenüberschrift trennt stärker vom Vortext als Absätze untereinander. */
+.article-body .prose h2 { margin-top: clamp(36px, 4.5vw, 52px); }
+.article-body .prose h2 + p { margin-top: 12px; }
+.article-body .prose .lede + * { margin-top: 28px; }
 .article-figure__frame, .article-figure__frame picture { display: block; border-radius: 0; overflow: hidden; }
 .article-figure img { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; border-radius: 0; }
 .article-figure figcaption { margin-top: 14px; font-size: .82rem; color: var(--muted); font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; }
@@ -484,31 +541,37 @@ p { margin: 0; }
 .related { padding-block: clamp(52px, 7vw, 90px); background: color-mix(in srgb, var(--ink) 4%, var(--paper)); }
 .related__head { margin-bottom: 30px; }
 .related__head h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
-@media (max-width: 620px) { .article-meta { font-size: .72rem; } }
+@media (max-width: 620px) { .article-meta { font-size: .75rem; } }
 
 /* Masthead-Variante: Titelkarte/Foto oben als reines Bildband, Titel & Meta
    darunter auf hellem Grund (löst Kontrastprobleme heller Fotos). Additiv —
    .article-hero (Cases) bleibt unverändert. */
 .article-hero--masthead { display: block; min-height: 0; padding: 0; align-items: unset; }
 .article-hero--masthead::after { display: none; }
-.article-hero--masthead .article-hero__bg { position: static; inset: auto; z-index: auto; height: clamp(240px, 38vw, 420px); }
+.article-hero--masthead .article-hero__bg { position: static; inset: auto; z-index: auto; height: clamp(240px, 36vw, 400px); }
 .article-hero--masthead .article-hero__bg picture { height: 100%; }
-.article-masthead-meta { padding-block: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 32px); background: var(--paper); }
+.article-masthead-meta { padding-block: clamp(24px, 3vw, 32px) clamp(16px, 2vw, 24px); background: var(--paper); }
+/* Text rückt unter den Titel: kein eigener Leerraum zwischen Metazeile und erstem Block. */
+.article-masthead-meta + .article-body { padding-top: clamp(16px, 2.2vw, 28px); }
+.article-masthead-meta + .article-body .container > :first-child,
+.article-masthead-meta + .article-body .prose:first-child > :first-child { margin-top: 0; }
+/* Cases: Text beginnt nah unter dem Kopfbild statt nach fast 120 px Leerraum. */
+.article-hero:not(.article-hero--masthead) + .article-body { padding-top: clamp(32px, 4.4vw, 64px); }
 .article-masthead-meta .breadcrumb, .article-masthead-meta .breadcrumb a { color: var(--muted); }
 .article-masthead-meta .breadcrumb a:hover { color: var(--cyan-ink); }
-.article-masthead-meta h1 { color: var(--ink); max-width: 26ch; font-size: clamp(2rem, 5vw, 3.6rem); overflow-wrap: break-word; hyphens: auto; }
+.article-masthead-meta h1 { color: var(--ink); max-width: 22em; font-size: clamp(1.8rem, 3.4vw, 2.6rem); overflow-wrap: break-word; hyphens: auto; }
 .article-masthead-meta .article-meta { color: var(--muted); margin-top: 20px; }
 .article-masthead-meta .article-meta > span + span::before { color: var(--line-strong); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 940px) {
-  #vision { display: flex; flex-direction: column; align-items: center; min-height: clamp(640px, 92vh, 900px); }
+  #vision { display: flex; flex-direction: column; align-items: center; min-height: clamp(640px, 92vh, 900px); padding-bottom: 0; }
   .vision__body { max-width: none; align-self: stretch; }
   .vision__billboard { position: static; transform: none; z-index: auto; margin-top: auto; margin-inline: 0; text-align: center; pointer-events: none; }
   .vision__billboard-img { height: auto; width: min(300px, 72vw); margin-inline: auto; }
 }
-/* Arbeitsweise: vertikale Timeline auf schmalen Screens */
-@media (max-width: 760px) {
+/* Arbeitsweise: vertikale Timeline auf schmalen Screens (bis Tablet-Hochformat, vier Spalten sind darunter zu schmal) */
+@media (max-width: 900px) {
   .journey__track { left: 10px; right: auto; top: 6px; bottom: 6px; width: 3px; height: auto; }
   .journey__fill { inset: 0 0 auto 0; width: 100%; height: calc(var(--progress) * 100%); transition: height .35s var(--ease); background: linear-gradient(180deg, var(--yellow), var(--pink) 42%, var(--green) 72%, var(--violet)); }
   .journey__steps { grid-template-columns: 1fr; gap: 34px; }
@@ -519,6 +582,10 @@ p { margin: 0; }
 @media (max-width: 720px) {
   .js [data-reveal="left"], .js [data-reveal="right"] { transform: translateY(22px); }
   .journey-quote, .section--skyphoto .journey-quote { white-space: normal; overflow-wrap: anywhere; }
+  .hero__lamp--warm { opacity: .55; bottom: 0; height: clamp(380px, 62vh, 560px); }
+}
+/* Navigation: ab Tablet-Hochformat als Menü, sonst stößt die Linkreihe ans Logo (721 bis 900 px) */
+@media (max-width: 900px) {
   .nav-links, .nav-cta { display: none; }
   .nav-toggle { display: inline-flex; }
   .nav.is-open { position: fixed; inset: 0; background: var(--paper); flex-direction: column; justify-content: flex-start; gap: 0; padding: max(84px, calc(env(safe-area-inset-top) + 72px)) 32px max(32px, env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
@@ -527,12 +594,11 @@ p { margin: 0; }
   .nav.is-open .nav-cta { display: inline-flex; margin-top: 20px; font-size: 1rem; padding: 13px 28px; }
   .nav.is-open .nav-toggle { position: fixed; top: max(16px, env(safe-area-inset-top)); right: var(--gutter); }
   body.nav-open { overflow: hidden; touch-action: none; }
-  .hero__lamp--warm { opacity: .55; bottom: 0; height: clamp(380px, 62vh, 560px); }
 }
+
 @media (max-width: 430px) {
   .hero { padding-inline: max(16px, var(--gutter)); }
-  .hero .display { font-size: clamp(2.2rem, 11vw, 2.95rem); }
-  .hero__sub { font-size: clamp(1rem, 4.6vw, 1.18rem); }
+  .hero__sub { font-size: min(1.18rem, calc((100vw - 2 * max(16px, var(--gutter))) / 20.5)); white-space: nowrap; }
 }
 @media (max-height: 520px) and (max-width: 920px) and (orientation: landscape) {
   .nav.is-open { padding-top: max(70px, calc(env(safe-area-inset-top) + 64px)); }
@@ -540,3 +606,63 @@ p { margin: 0; }
   .nav.is-open .nav-links a { font-size: 1.3rem; padding-block: 2px; }
   .nav.is-open .nav-cta { margin-top: 10px; padding-block: 9px; }
 }
+
+/* ---------- Typografie und Mobile-Feinschliff ---------- */
+/* Überschriften werden nie mitten im Wort getrennt (Safari trennte "Zusammenar-beit", "Aufstel-len"); zu lange Wörter brechen nur als letzter Ausweg. */
+h1, h2, h3, .display, .tile h3, .article-masthead-meta h1, .article-hero h1, .contact__headline, .prose blockquote, .prose blockquote p { overflow-wrap: break-word; hyphens: manual; }
+.section--skyphoto .tile__body { padding-inline: 0; }
+.all-link { color: #fff; font-weight: 700; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+.all-link:hover { color: var(--cyan); }
+@media (max-width: 600px) {
+  /* Blocksatz erzeugt auf schmalen Spalten Lücken und Trennungen: linksbündig */
+  .lead, .vision__body p, #ueber-uns .about-text p, .journey-intro p, .journey__step p, .tile__excerpt, .wheel__detail p, .team-tile--info p, .prose p, .prose li { text-align: left; }
+}
+@media (max-width: 480px) {
+  h2 { font-size: clamp(1.55rem, 7.4vw, 2rem); }
+  .contact__headline { font-size: clamp(1.55rem, 7.4vw, 2.2rem); }
+  .article-hero h1, .article-masthead-meta h1 { font-size: clamp(1.7rem, 8vw, 2.1rem); }
+}
+@media (max-width: 720px) {
+  .hero__sub { color: var(--ink-soft); }
+  .all-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 1rem; }
+  .brand { display: inline-flex; align-items: center; min-height: 44px; }
+  .linkedin-link { width: 44px; height: 44px; }
+  .back-link { min-height: 44px; margin-top: 32px; }
+  .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer__col ul { gap: 0; }
+  .contact__email { padding-block: 10px; }
+}
+
+/* Bildausschnitte (Council-Entscheidung 02.10.2026): Gesichter und Schrift bleiben vollständig im Bild.
+   Kachelbilder (16:10) und die Kopfbild-Streifen der Cases sind vorgeschnitten (scripts/ nicht nötig, siehe assets/img/*-tile-* und *-hero-*). */
+/* Hochformat-Fotos mit Person oder Motiv ganz zeigen statt als breiten Streifen anzuschneiden */
+.article-figure img[src*="case-kita-presentation"], .article-figure img[src*="case-wissen-laptop"], .article-figure img[src*="case-personal-presentation"] { aspect-ratio: 3 / 4; max-width: 520px; object-position: 50% 50%; }
+.article-figure img[src*="case-strategic-skyline"] { aspect-ratio: 1300 / 1234; max-width: 620px; object-position: 50% 50%; }
+.article-figure img[src*="case-pm-workspace"] { object-position: 50% 25%; }
+.article-figure img[src*="case-personal-vibes"] { aspect-ratio: 4 / 3; object-position: 50% 38%; }
+.article-figure img[src*="/event."] { object-position: 50% 35%; }
+.article-figure img[src*="insight-balloon"] { object-position: 50% 5%; }
+.article-figure img[src*="insight-birthday-team"] { aspect-ratio: 3 / 4; max-width: 520px; object-position: 50% 50%; }
+.article-figure img[src*="insight-vision-eagle"] { object-position: 50% 60%; }
+.article-figure img[src*="insight-hochschule-workshop"] { object-position: 50% 75%; }
+.article-figure img[src*="insight-govtech"] { object-position: 50% 70%; }
+/* Freisteller auf Weiß: ganzes Bild, damit nichts angeschnitten wird */
+.article-figure img[src*="insight-staerken"] { object-fit: contain; background: #fff; }
+/* Kopfbild Tablet (721 bis 1023 px, Container fast quadratisch): Vollbild mit denselben Bildmitten wie am Desktop; ab 1024 px sind die Streifen *-hero-* vorgeschnitten */
+@media (min-width: 721px) and (max-width: 1023px) {
+  .article-hero__bg img[src*="case-ki-magic"] { object-position: 50% 30%; }
+  .article-hero__bg img[src*="case-wissen-collaborate"] { object-position: 8% 50%; }
+  .article-hero__bg img[src*="case-strategic-calm"] { object-position: 50% 20%; }
+  .article-hero__bg img[src*="case-personal-notes"] { object-position: 50% 30%; }
+  .article-hero__bg img[src*="case-pm-training"] { object-position: 50% 25%; }
+}
+/* Kopfbild mobil (hochkant): Wortanfang beziehungsweise Schild im Ausschnitt */
+@media (max-width: 720px) {
+  .article-hero__bg img[src*="case-kita-workshop"] { object-position: 0% 50%; }
+  .article-hero__bg img[src*="case-wissen-collaborate"] { object-position: 10% 50%; }
+  .article-hero__bg img[src*="case-strategic-calm"] { object-position: 82% 50%; }
+}
+
+/* Schmale Textblöcke im Blocksatz bilden große Wortlücken: linksbündig (lange Fließtexte bleiben im Blocksatz). */
+.lead, .tile__excerpt, .team-tile--info p, .journey__step p { text-align: left; }
+.hero .lead, .article-cta .lead { text-align: center; }

@@ -29,7 +29,7 @@ function publicPath(file) {
   const relative = path.relative(root, file).split(path.sep).join("/");
   if (relative === "index.html") return "/";
   if (relative.endsWith("/index.html")) return "/" + relative.slice(0, -"index.html".length);
-  return "/" + relative;
+  return "/" + relative.replace(/\.html$/, "");
 }
 
 test("all internal links resolve and local fragments exist", async () => {
@@ -42,7 +42,9 @@ test("all internal links resolve and local fragments exist", async () => {
       const target = new URL(href, currentUrl);
       assert.equal(target.origin, productionOrigin, `${publicPath(file)} links outside the production origin: ${href}`);
       let pathname = decodeURIComponent(target.pathname);
-      if (pathname.endsWith("/")) pathname += "index.html";
+      assert.doesNotMatch(pathname, /\.html$/, `${publicPath(file)} links to a .html address that Cloudflare redirects: ${href}`);
+      // Cloudflare Workers Assets: /cases/ -> cases/index.html, /cases/kita -> cases/kita.html
+      pathname += pathname.endsWith("/") ? "index.html" : ".html";
       const targetFile = path.join(root, pathname.replace(/^\//, ""));
       const targetHtml = await readFile(targetFile, "utf8").catch(() => null);
       assert.notEqual(targetHtml, null, `${publicPath(file)} has a broken link: ${href}`);
@@ -63,6 +65,7 @@ test("canonicals and sitemap use the production domain consistently", async () =
     assert.equal(matches.length, 1, `${publicPath(file)} must have one canonical`);
     const expected = productionOrigin + publicPath(file);
     assert.equal(matches[0][1], expected, `${publicPath(file)} has the wrong canonical`);
+    assert.doesNotMatch(matches[0][1], /\.html$/, `${publicPath(file)} canonical must not end in .html`);
     canonicalByPath.set(publicPath(file), matches[0][1]);
   }
 
@@ -81,6 +84,7 @@ test("migration rules, 404 and mailto contact are present", async () => {
   const redirects = await readFile(path.join(root, "_redirects"), "utf8");
   assert.match(redirects, /^\/home \/ 301$/m);
   assert.match(redirects, /^\/home\/ \/ 301$/m);
+  assert.match(redirects, /^\/\*\.html \/:splat 301$/m);
 
   const notFound = await readFile(path.join(root, "404.html"), "utf8");
   assert.match(notFound, /name="robots" content="noindex,follow"/);
@@ -272,3 +276,14 @@ function getMeta(html, attribute, name, file) {
   assert.equal(matches.length, 1, `${file} must contain exactly one ${name}`);
   return matches[0][1];
 }
+
+test("navigation and footer links follow the order of the homepage sections", async () => {
+  const html = await readFile(path.join(root, "index.html"), "utf8");
+  const sectionIds = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]);
+  const navBlock = html.match(/<ul class="nav-links">([\s\S]*?)<\/ul>/)?.[1] || "";
+  const navIds = [...navBlock.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(navIds, sectionIds.filter((id) => navIds.includes(id)), "navigation order must match the section order on the page");
+  const footerBlock = html.match(/<h4>Navigation<\/h4><ul>([\s\S]*?)<\/ul>/)?.[1] || "";
+  const footerIds = [...footerBlock.matchAll(/href="#([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(footerIds, navIds, "footer navigation must match the main navigation");
+});

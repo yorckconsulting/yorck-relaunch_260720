@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "yorck-relaunch260720",
+  "main": "src/worker.js",
   "compatibility_date": "2026-07-15",
-  "assets": { "directory": ".pages-dist" }
+  "assets": { "directory": ".pages-dist", "not_found_handling": "404-page", "run_worker_first": ["/_assets/*"] }
 }

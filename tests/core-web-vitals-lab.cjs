@@ -5,7 +5,7 @@ const { launchBrowser } = require("./browser-runtime.cjs");
 
 const base = process.argv[2] || "http://127.0.0.1:8765";
 const budget = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../performance-budget.json"), "utf8")).coreWebVitalsP75;
-const pages = ["/", "/cases/", "/insights/", "/cases/kita.html", "/insights/angstfreie-organisationen.html"];
+const pages = ["/", "/cases/", "/insights/", "/cases/kita", "/insights/angstfreie-organisationen"];
 
 (async () => {
   const browser = await launchBrowser();
