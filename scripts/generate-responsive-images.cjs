@@ -33,7 +33,6 @@ const photos = {
   "case-kita-objects.jpg": [480, 800, 960, 1300],
   "case-ki-magic.jpg": [480, 800, 960, 1300],
   "case-ki-neon.jpg": [480, 800, 960, 1300],
-  "case-ki-umbrella.jpg": [480, 800, 960, 1300],
   "case-wissen-collaborate.jpg": [480, 800, 960, 1300],
   "case-wissen-laptop.jpg": [480, 800, 960, 1300],
   "case-wissen-cafe.jpg": [480, 800, 960, 1300],
