@@ -5,7 +5,7 @@ Stand: 16.07.2026
 ## Was im Projekt automatisiert ist
 
 - `scripts/check-production.mjs` prüft Homepage, wichtige Unterseiten, Sitemap, Robots, `/home`-Redirects, echte 404, den 410-Asset-Namensraum und zentrale Security-Header.
-- `npm run social:check` prüft die 14 Social-Metadatensätze und Vorschaubilder rein lesend; `prepare:pages` blockiert bei einem veralteten Stand.
+- `npm run social:check` prüft die 19 Social-Metadatensätze und Vorschaubilder rein lesend; `prepare:pages` blockiert bei einem veralteten Stand.
 - `npm test` prüft Unit/Integrität, CSP, Worker-Routing, sämtliche Seiten in Chromium, Firefox und WebKit, Mobile, Performance-Budgets und lokale LCP-/CLS-Grenzen.
 
 Das Projekt liegt auf GitHub und ist mit einem Cloudflare-Worker (Workers Builds) verbunden. `npm test` ist vor jedem Merge nach `main` verpflichtend, startet die statische Vorschau und die Worker-Runtime selbst und beendet beide auch bei einem Fehler zuverlässig. Die Runtime nutzt das in `wrangler.jsonc` festgeschriebene Kompatibilitätsdatum `2026-07-15`.

@@ -6,7 +6,7 @@ Stand: 16.07.2026
 
 - Sichtbarer Inhalt, Seitentitel, Meta-Description und Canonical stehen direkt in der jeweiligen HTML-Datei.
 - `content/social-pages.json` enthält nur die zusätzliche Social-Konfiguration: öffentliche URL, Seitentyp, Kategorie, Markenakzent, Bilddatei und Bildbeschreibung.
-- `sitemap.xml` und die Seitentabelle müssen exakt dieselben 14 öffentlichen URLs enthalten.
+- `sitemap.xml` und die Seitentabelle müssen exakt dieselben 19 öffentlichen URLs enthalten.
 - 404, Impressum und Datenschutz bleiben als nicht indexierbare Seiten bewusst ohne Social-Vorschau.
 
 Eine vollständige Template-Migration ist für die kleine statische Website nicht vorgesehen. Dadurch bleiben die Quelldateien direkt lesbar, während wiederkehrende Social-Daten trotzdem zentral geprüft werden.

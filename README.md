@@ -30,7 +30,7 @@ CSS und JavaScript werden im Deployment-Artefakt automatisch mit einem zwölfste
 
 ## Inhalte und Social-Vorschauen
 
-Alle 14 öffentlichen Seiten besitzen vollständige Open-Graph- und Twitter-Card-Metadaten sowie eine eigene 1200×630-PNG-Karte. Title, Meta-Description und Canonical bleiben in den HTML-Dateien die inhaltliche Quelle; `content/social-pages.json` verwaltet Seitentyp, Kategorie, Akzent, Bildname und Bildbeschreibung.
+Alle 19 öffentlichen Seiten besitzen vollständige Open-Graph- und Twitter-Card-Metadaten sowie eine eigene 1200×630-PNG-Karte. Title, Meta-Description und Canonical bleiben in den HTML-Dateien die inhaltliche Quelle; `content/social-pages.json` verwaltet Seitentyp, Kategorie, Akzent, Bildname und Bildbeschreibung.
 
 Nach einer inhaltlichen Änderung:
 
