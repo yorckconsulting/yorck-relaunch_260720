@@ -5,16 +5,16 @@ const pageRoutes = require("./page-routes.cjs");
 
 const base = process.env.BASE_URL || process.argv[2] || "http://127.0.0.1:8765";
 const acceptedArticleContrastRoutes = new Set([
-  "/cases/entscheidungswege.html",
-  "/cases/fuehrung-umbruch.html",
-  "/cases/kita.html",
-  "/cases/personalstrategie.html",
-  "/cases/wissen-das-auffindbar-wird.html",
-  "/insights/angstfreie-organisationen.html",
-  "/insights/kein-angebotsproblem-public-sector.html",
-  "/insights/private-hochschulen-unter-druck.html",
-  "/insights/empowered-by-strengths.html",
-  "/insights/vision-statt-verwaltung.html"
+  "/cases/entscheidungswege",
+  "/cases/fuehrung-umbruch",
+  "/cases/kita",
+  "/cases/personalstrategie",
+  "/cases/wissen-das-auffindbar-wird",
+  "/insights/angstfreie-organisationen",
+  "/insights/kein-angebotsproblem-public-sector",
+  "/insights/private-hochschulen-unter-druck",
+  "/insights/empowered-by-strengths",
+  "/insights/vision-statt-verwaltung"
 ]);
 
 function blockingViolations(axe, route) {
