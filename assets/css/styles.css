@@ -658,7 +658,7 @@ h1, h2, h3, .display, .tile h3, .team-tile__name, .article-masthead-meta h1, .ar
 .article-figure img[src*="insight-hochschule-workshop"] { object-position: 50% 75%; }
 .article-figure img[src*="insight-govtech"] { object-position: 50% 70%; }
 /* Freisteller auf Weiß: ganzes Bild, damit nichts angeschnitten wird */
-.article-figure img[src*="insight-staerken"], .article-figure img[src*="insight-cake"] { object-fit: contain; background: #fff; }
+.article-figure img[src*="insight-staerken"] { object-fit: contain; background: #fff; }
 /* Kopfbild Tablet (721 bis 1023 px, Container fast quadratisch): Vollbild mit denselben Bildmitten wie am Desktop; ab 1024 px sind die Streifen *-hero-* vorgeschnitten */
 @media (min-width: 721px) and (max-width: 1023px) {
   .article-hero__bg img[src*="case-ki-magic"] { object-position: 50% 30%; }

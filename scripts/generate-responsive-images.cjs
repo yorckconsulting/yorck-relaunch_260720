@@ -17,7 +17,6 @@ const photos = {
   "team-moritz.jpg": [320, 600, 935],
   "insight-cover.jpg": [640, 960, 1300],
   "insight-staerken.jpg": [480, 800, 960, 1300],
-  "insight-cake.jpg": [480, 800, 960, 1300],
   "insight-govtech.jpg": [480, 800, 960, 1300],
   "insight-balloon.jpg": [480, 800, 960, 1300],
   "insight-kita.jpg": [480, 800, 960, 1300],
