@@ -26,7 +26,7 @@
 
 1. Rechtstexte und Datenschutz wurden laut fachlicher Freigabe abgeschlossen; die Dateien wurden in dieser Runde nicht verändert.
 2. Logos, Referenzen, Cases, Aussagen und Bildkontexte wurden laut fachlicher Freigabe abgeschlossen; die Inhalte wurden in dieser Runde nicht verändert.
-3. Alle 14 öffentlichen Seiten besitzen vollständige Open-Graph-/Twitter-Metadaten und eigene 1200×630-PNG-Karten. Eine zentrale Seitentabelle, ein deterministischer Pflegebefehl und ein blockierender Prüfmodus verhindern Abweichungen.
+3. Alle 19 öffentlichen Seiten besitzen vollständige Open-Graph-/Twitter-Metadaten und eigene 1200×630-PNG-Karten. Eine zentrale Seitentabelle, ein deterministischer Pflegebefehl und ein blockierender Prüfmodus verhindern Abweichungen.
 4. Die Entscheidung gegen Git/GitHub ist technisch bereinigt: vorbereitete Workflows liegen datiert im Projektarchiv. Cloudflare-Projekt, Anmeldung und Access-Schutz bleiben der nächste operative Schritt.
 
 ## Verifikation
@@ -35,7 +35,7 @@
 - 9/9 Integritäts-, Metadaten-, CSP-, Asset- und Konfigurationstests bestanden.
 - Chromium, Firefox und WebKit bestanden die vollständigen Seiten-, Tastatur-, Axe- und Marquee-Prüfungen.
 - Mobile, 200-%-Textskalierung, Reduced Motion, Performance-/CWV-Budgets, Pages-Routing, Redirects, Security-Header und CSP bestanden.
-- Die Social-Seitentabelle deckt exakt die 14 Sitemap-URLs ab.
+- Die Social-Seitentabelle deckt exakt die 19 Sitemap-URLs ab.
 - 404, Impressum und Datenschutz bleiben bewusst ohne Social-Vorschau.
 - Die generierten Karten werden auf Dateityp, Abmessungen, Vollständigkeit und inhaltliche Aktualität geprüft.
 - Der Pages-Build bricht ab, wenn Social-Tags oder Karten nicht mit HTML und Seitentabelle übereinstimmen.
