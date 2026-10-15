@@ -535,7 +535,11 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
 
 /* Bild-Break zwischen Textabschnitten (breiter als der Textsatz).
    overflow hidden beschneidet das Parallax-Motiv (Bild ist leicht skaliert). */
-.article-figure { margin: clamp(36px, 5vw, 64px) 0 clamp(32px, 4.5vw, 52px); max-width: 1040px; }
+.article-figure { margin: clamp(32px, 4vw, 48px) 0; max-width: 1040px; }
+/* Textrhythmus im Artikel: Zwischenüberschrift trennt stärker vom Vortext als Absätze untereinander. */
+.article-body .prose h2 { margin-top: clamp(36px, 4.5vw, 52px); }
+.article-body .prose h2 + p { margin-top: 12px; }
+.article-body .prose .lede + * { margin-top: 28px; }
 .article-figure__frame, .article-figure__frame picture { display: block; border-radius: 0; overflow: hidden; }
 .article-figure img { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; border-radius: 0; }
 .article-figure figcaption { margin-top: 14px; font-size: .82rem; color: var(--muted); font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em; }
