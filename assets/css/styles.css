@@ -562,12 +562,16 @@ body.nav-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: non
    .article-hero (Cases) bleibt unverändert. */
 .article-hero--masthead { display: block; min-height: 0; padding: 0; align-items: unset; }
 .article-hero--masthead::after { display: none; }
-.article-hero--masthead .article-hero__bg { position: static; inset: auto; z-index: auto; height: clamp(240px, 38vw, 420px); }
+.article-hero--masthead .article-hero__bg { position: static; inset: auto; z-index: auto; height: clamp(240px, 36vw, 400px); }
 .article-hero--masthead .article-hero__bg picture { height: 100%; }
-.article-masthead-meta { padding-block: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 32px); background: var(--paper); }
+.article-masthead-meta { padding-block: clamp(24px, 3vw, 32px) clamp(16px, 2vw, 24px); background: var(--paper); }
+/* Text rückt unter den Titel: kein eigener Leerraum zwischen Metazeile und erstem Block. */
+.article-masthead-meta + .article-body { padding-top: clamp(16px, 2.2vw, 28px); }
+.article-masthead-meta + .article-body .container > :first-child,
+.article-masthead-meta + .article-body .prose:first-child > :first-child { margin-top: 0; }
 .article-masthead-meta .breadcrumb, .article-masthead-meta .breadcrumb a { color: var(--muted); }
 .article-masthead-meta .breadcrumb a:hover { color: var(--cyan-ink); }
-.article-masthead-meta h1 { color: var(--ink); max-width: 26ch; font-size: clamp(2rem, 5vw, 3.6rem); overflow-wrap: break-word; hyphens: auto; }
+.article-masthead-meta h1 { color: var(--ink); max-width: 22em; font-size: clamp(1.8rem, 3.4vw, 2.6rem); overflow-wrap: break-word; hyphens: auto; }
 .article-masthead-meta .article-meta { color: var(--muted); margin-top: 20px; }
 .article-masthead-meta .article-meta > span + span::before { color: var(--line-strong); }
 
