@@ -1,7 +1,7 @@
 # URL-Migration zum Relaunch
 
 **Stand:** 16.07.2026  
-**Produktionsdomain:** `https://yorck-consulting.com`
+**Produktionsdomain:** `https://www.yorck-consulting.com`
 
 ## Erfasste Alt-URLs
 
@@ -9,7 +9,7 @@ Die öffentlich erreichbare Sitemap der bisherigen Canva-Website wurde am 14.07.
 
 | Bisherige URL | Entscheidung | Technische Umsetzung |
 |---|---|---|
-| `/` | bleibt `/` | neue Startseite, Canonical `https://yorck-consulting.com/` |
+| `/` | bleibt `/` | neue Startseite, Canonical `https://www.yorck-consulting.com/` |
 | `/home` | dauerhaft nach `/` | `_redirects`: HTTP 301 |
 | `/home/` | dauerhaft nach `/` | `_redirects`: HTTP 301 |
 | `/_assets/*` | bewusst entfernt | Pages Function liefert HTTP 410 und `X-Robots-Tag: noindex` |
@@ -56,11 +56,11 @@ Erwartungen:
 - `/cases/kita.html`: genau ein `301` auf `/cases/kita`; `/cases/kita`: `200`.
 - `/_assets/test.js`: `410 Gone`.
 - unbekannte Seite: `404` mit der gestalteten Fehlerseite und `noindex`.
-- `sitemap.xml`: `200`, ausschließlich `https://yorck-consulting.com/...`.
+- `sitemap.xml`: `200`, ausschließlich `https://www.yorck-consulting.com/...`.
 - interne Links: keine 404-Antworten und keine Links auf `/home`.
 
 ## Cutover-Abnahme
 
 - Redirects zuerst auf der Preview-Deployment-URL testen.
-- Nach DNS-/Domain-Umschaltung dieselben Prüfungen auf `https://yorck-consulting.com` wiederholen.
+- Nach DNS-/Domain-Umschaltung dieselben Prüfungen auf `https://www.yorck-consulting.com` wiederholen.
 - Canonicals, Sitemap, `robots.txt`, 404-Antwort und interne Links aus der ausgelieferten Produktionsversion prüfen; lokale Dateien allein reichen dafür nicht.

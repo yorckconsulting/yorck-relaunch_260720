@@ -10,7 +10,7 @@ import { onRequest as oldAssetRequest } from "../functions/_assets/[[path]].js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const deployRoot = path.join(root, ".pages-dist");
-const productionOrigin = "https://yorck-consulting.com";
+const productionOrigin = "https://www.yorck-consulting.com";
 
 async function htmlFiles(directory = root) {
   const entries = await readdir(directory);
