@@ -36,7 +36,7 @@ Vor dem Domainwechsel gegen die Preview-URL, direkt danach gegen Produktion:
 ```bash
 npm test
 node scripts/check-production.mjs https://preview-domain.example
-node scripts/check-production.mjs https://yorck-consulting.com
+node scripts/check-production.mjs https://www.yorck-consulting.com
 ```
 
 Zusätzlich manuell:
@@ -68,7 +68,7 @@ Search Console benötigt Google- und DNS-Zugriff und kann nicht aus dem Reposito
 
 1. Domain-Property `yorck-consulting.com` anlegen.
 2. Google-TXT-Eintrag dauerhaft im DNS hinterlegen.
-3. `https://yorck-consulting.com/sitemap.xml` einreichen.
+3. `https://www.yorck-consulting.com/sitemap.xml` einreichen.
 4. `/`, `/cases/`, `/insights/` sowie je eine Detailseite per URL-Prüfung kontrollieren.
 5. Indexierung, Sitemap-Fehler und CWV nach 24 Stunden, 7 Tagen und 30 Tagen prüfen.
 

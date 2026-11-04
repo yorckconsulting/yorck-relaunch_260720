@@ -3,4 +3,4 @@ Allow: /
 Disallow: /impressum
 Disallow: /datenschutz
 
-Sitemap: https://yorck-consulting.com/sitemap.xml
+Sitemap: https://www.yorck-consulting.com/sitemap.xml

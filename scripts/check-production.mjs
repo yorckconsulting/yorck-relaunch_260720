@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-const base = new URL(process.argv[2] || "https://yorck-consulting.com");
+const base = new URL(process.argv[2] || "https://www.yorck-consulting.com");
 const securityHeaders = {
   "content-security-policy": /frame-ancestors 'none'/,
   "strict-transport-security": /max-age=/,
