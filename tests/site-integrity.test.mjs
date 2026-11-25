@@ -42,6 +42,11 @@ test("all internal links resolve and local fragments exist", async () => {
       const target = new URL(href, currentUrl);
       assert.equal(target.origin, productionOrigin, `${publicPath(file)} links outside the production origin: ${href}`);
       let pathname = decodeURIComponent(target.pathname);
+      if (/\.pdf$/i.test(pathname)) {
+        const pdf = await stat(path.join(root, pathname.replace(/^\//, ""))).catch(() => null);
+        assert.ok(pdf?.isFile(), `${publicPath(file)} links to a missing PDF: ${href}`);
+        continue;
+      }
       assert.doesNotMatch(pathname, /\.html$/, `${publicPath(file)} links to a .html address that Cloudflare redirects: ${href}`);
       // Cloudflare Workers Assets: /cases/ -> cases/index.html, /cases/kita -> cases/kita.html
       pathname += pathname.endsWith("/") ? "index.html" : ".html";

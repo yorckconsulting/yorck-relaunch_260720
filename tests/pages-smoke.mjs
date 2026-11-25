@@ -27,14 +27,16 @@ for (const [from, to] of [
   ["/impressum.html", "/impressum"],
   ["/index.html", "/"],
   ["/cases/index.html", "/cases/"],
-  ["/insights/index.html", "/insights/"]
+  ["/insights/index.html", "/insights/"],
+  ["/karriere/index.html", "/karriere/"],
+  ["/karriere/praktikum.html", "/karriere/praktikum"]
 ]) {
   const response = await load(from);
   assert.equal(response.status, 301, `${from} must redirect permanently`);
   assert.equal(new URL(response.headers.get("location"), base).pathname, to);
 }
 
-for (const path of ["/cases/", "/cases/kita", "/insights/angstfreie-organisationen", "/impressum", "/datenschutz"]) {
+for (const path of ["/cases/", "/cases/kita", "/insights/angstfreie-organisationen", "/karriere/", "/karriere/praktikum", "/assets/docs/praktikum-yorck-consulting.pdf", "/impressum", "/datenschutz"]) {
   assert.equal((await load(path)).status, 200, `${path} must be served without redirect`);
 }
 
