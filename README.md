@@ -44,7 +44,7 @@ Seiten werden ohne `.html` adressiert (`/cases/kita`, `/impressum`); Verzeichnis
 
 ## Inhalte und Social-Vorschauen
 
-Alle 19 öffentlichen Seiten besitzen vollständige Open-Graph- und Twitter-Card-Metadaten sowie eine eigene 1200×630-PNG-Karte. Title, Meta-Description und Canonical bleiben in den HTML-Dateien die inhaltliche Quelle; `content/social-pages.json` verwaltet Seitentyp, Kategorie, Akzent, Bildname und Bildbeschreibung. Die Karten enthalten nur Titel, Kategorie und Markenname, keine URL.
+Alle 21 öffentlichen Seiten besitzen vollständige Open-Graph- und Twitter-Card-Metadaten sowie eine eigene 1200×630-PNG-Karte. Title, Meta-Description und Canonical bleiben in den HTML-Dateien die inhaltliche Quelle; `content/social-pages.json` verwaltet Seitentyp, Kategorie, Akzent, Bildname und Bildbeschreibung. Die Karten enthalten nur Titel, Kategorie und Markenname, keine URL.
 
 Nach einer inhaltlichen Änderung:
 
@@ -111,7 +111,7 @@ Ohne die Hausschrift (siehe „Inhalte und Social-Vorschauen“) bricht `npm tes
 ```text
 index.html, impressum.html, datenschutz.html, 404.html   Startseite, Rechtstexte, Fehlerseite
 assets/                     Statische Styles, Scripts, Fonts und Bilder
-cases/, insights/           Indexierbare Unterseiten
+cases/, insights/, karriere/  Indexierbare Unterseiten
 content/social-pages.json   Zentrale Social-Konfiguration der öffentlichen Seiten
 src/worker.js               Worker: nur /_assets/* (410), sonst Static Assets
 functions/_assets/          410-Antwort für alte Canva-Assets
@@ -123,7 +123,7 @@ scripts/verify.mjs          Orchestriert die vollständige lokale Qualitätsprü
 serve.py                    Lokaler Server (Port 8765), liefert Seiten ohne .html aus
 tests/                      Unit-, Browser-, Pages-, CSP- und Performance-Tests
 _headers, _redirects        Edge-Header, URL-Migration und .html-Weiterleitungen
-sitemap.xml, robots.txt     Sitemap (19 URLs) und Crawler-Regeln
+sitemap.xml, robots.txt     Sitemap (21 URLs) und Crawler-Regeln
 performance-budget.json     Verbindliche Lade- und CWV-Budgets
 STATUS.md                   Aktueller Abschlussstand und offene Priorität 2
 CONTENT-GOVERNANCE.md       Verbindlicher Ablauf für Inhaltsänderungen

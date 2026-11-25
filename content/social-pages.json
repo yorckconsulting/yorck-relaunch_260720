@@ -94,6 +94,24 @@
       "imageAlt": "Vorschau der Insights von yorck. consulting"
     },
     {
+      "file": "karriere/index.html",
+      "path": "/karriere/",
+      "type": "website",
+      "category": "Karriere",
+      "accent": "#ff66c4",
+      "image": "karriere.png",
+      "imageAlt": "Vorschau der Karriere-Seite von yorck. consulting"
+    },
+    {
+      "file": "karriere/praktikum.html",
+      "path": "/karriere/praktikum",
+      "type": "website",
+      "category": "Stelle",
+      "accent": "#ff66c4",
+      "image": "karriere-praktikum.png",
+      "imageAlt": "Vorschau der Stelle Praktikum bei Yorck"
+    },
+    {
       "file": "insights/kein-angebotsproblem-public-sector.html",
       "path": "/insights/kein-angebotsproblem-public-sector",
       "type": "article",

@@ -15,6 +15,7 @@ const entries = [
   "impressum.html",
   "index.html",
   "insights",
+  "karriere",
   "robots.txt",
   "sitemap.xml"
 ];
