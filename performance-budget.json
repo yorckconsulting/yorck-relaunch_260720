@@ -40,7 +40,9 @@
         "/cases/",
         "/insights/",
         "/cases/kita",
-        "/insights/angstfreie-organisationen"
+        "/insights/angstfreie-organisationen",
+        "/karriere/",
+        "/karriere/praktikum"
       ],
       "desktop": {
         "initial": {
